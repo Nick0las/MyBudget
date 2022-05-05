@@ -84,7 +84,7 @@ namespace MyBudget.ViewModels
                 newUser.Surname = NewUserSurname;
                 newUser.Child = NewUserChild;
                 Collection.Users.Add(newUser);
-                //AddNewUser(newUser);
+                AddNewUser(newUser);
                 _ = MessageBox.Show(
                     "Пользователь добавлен!",
                     "Успех!",

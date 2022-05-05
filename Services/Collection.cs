@@ -18,5 +18,8 @@ namespace MyBudget.Services
         //коллекция всех добавленных счетов с балансом
         public static ObservableCollection<CardHolder> CardHolders { get; set; } = new ObservableCollection<CardHolder>();
 
+        //Коллекция всех добавленных видов поступления
+        public static ObservableCollection<TypeTransfer> AllTypeTransfer { get; set; } = new ObservableCollection<TypeTransfer>();
+
     }
 }

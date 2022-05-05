@@ -12,7 +12,7 @@ namespace MyBudget.Services.Interfaces
         protected static void LoadAllCardsMainWindow(ObservableCollection<Card_User> p)
         {
             string sqlAllCard = "SELECT * FROM user_cash";
-            ConnectionDB connection = new ConnectionDB();
+            ConnectionDB connection = new();
             connection.OpenConnection();
             SqliteCommand cmdAllCardUsers = new SqliteCommand
                 (sqlAllCard, connection.GetConnection());

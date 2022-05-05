@@ -1,11 +1,20 @@
 ﻿<Window x:Class="MyBudget.Views.Windows.Window_AddNewTypeTransfer"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MyBudget.Views.Windows"
-        mc:Ignorable="d"
-        Title="Новый вид поступления" Height="350" Width="500" ResizeMode="NoResize">
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:vm="clr-namespace:MyBudget.ViewModels"
+        xmlns:serv="clr-namespace:MyBudget.Services"
+        xmlns:cmd="clr-namespace:MyBudget.Commands"
+        xmlns:l="clr-namespace:MyBudget"        
+        Title="{Binding Title}" Height="350" Width="500" ResizeMode="NoResize">
+    <Window.DataContext>
+        <vm:AddNewTypeTransfer_ViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <serv:Collection x:Key="coll"/>
+    </Window.Resources>
     <DockPanel>
         <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
             <Button Content="Отмена" Height="30" Width="80"
@@ -15,7 +24,9 @@
             </Button>
             <Button Content="Добавить" Height="30" Width="80" 
                     HorizontalAlignment="Right" Margin="5"
-                    Style="{StaticResource CheckButtonStyle}">
+                    Style="{StaticResource CheckButtonStyle}" 
+                    IsDefault="True"
+                    Command="{Binding AddNewTypeTransferCmd}">
             </Button>
         </UniformGrid>
         <DockPanel DockPanel.Dock="Left" Width="300" Margin="5">
@@ -28,14 +39,18 @@
                        FontFamily="Arial"
                        FontWeight="Bold"
                        Text="Виды поступления:"/>
-            <DataGrid DockPanel.Dock="Top" 
+            <DataGrid ItemsSource="{Binding Source={x:Static serv:Collection.AllTypeTransfer}}" DockPanel.Dock="Top" 
                       AutoGenerateColumns="False"
                       CanUserReorderColumns="False" 
                       CanUserAddRows="False"
                       CanUserResizeColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="№" Width="45"/>
-                    <DataGridTextColumn Header="Вид поступления денежных средств" Width="*"/>
+                    <DataGridTextColumn Header="№" 
+                                        Width="45"
+                                        Binding="{Binding Path=IdTypeTransfer}"/>
+                    <DataGridTextColumn Header="Вид поступления денежных средств" 
+                                        Width="*"
+                                        Binding="{Binding Path=TittleTypeTransfer}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
@@ -63,7 +78,8 @@
                          TextWrapping="Wrap"
                          Height="36"
                          VerticalAlignment="Top" 
-                         Margin="3,0,7,15"/>
+                         Margin="3,0,7,15"
+                         Text="{Binding NameTypeTransfer}"/>
             </Grid>
         </DockPanel>
     </DockPanel>
