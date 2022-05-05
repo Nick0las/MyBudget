@@ -20,6 +20,8 @@ namespace MyBudget.Services
 
         //Коллекция всех добавленных видов поступления
         public static ObservableCollection<TypeTransfer> AllTypeTransfer { get; set; } = new ObservableCollection<TypeTransfer>();
-
+        
+        // Коллекция всех добавленных домов
+        public static ObservableCollection<House> Houses { get; set; } = new ObservableCollection<House>();
     }
 }

@@ -8,7 +8,8 @@
         xmlns:serv="clr-namespace:MyBudget.Services"
         xmlns:cmd="clr-namespace:MyBudget.Commands"
         xmlns:l="clr-namespace:MyBudget"        
-        Title="{Binding Title}" Height="350" Width="500" ResizeMode="NoResize">
+        Title="{Binding Title}" Height="350" Width="500" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <vm:AddNewTypeTransfer_ViewModel/>
     </Window.DataContext>

@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels 
 {
-    class AddNewCard_ViewModel : ViewModel_Base, IDownloadUserCard, IDownload_AllBalance, IDownloadUsers
+    internal class AddNewCard_ViewModel : ViewModel_Base, IDownloadUserCard, IDownload_AllBalance, IDownloadUsers
     {
 
         #region Заголовок окна

@@ -55,9 +55,9 @@
                               FontStyle="Normal" 
                               FontFamily="Sylfaen" 
                               FontSize="14">
-                        <!--<MenuItem.Command>
-                            <cmd:AddNewHouseCommand/>
-                        </MenuItem.Command>-->
+                        <MenuItem.Command>
+                            <cmd:OpenAddNewHouseCommand/>
+                        </MenuItem.Command>
                     </MenuItem>
                     <MenuItem Header="Провайдер" 
                               FontWeight="Normal"  

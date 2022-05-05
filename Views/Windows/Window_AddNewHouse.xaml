@@ -1,0 +1,129 @@
+﻿<Window x:Class="MyBudget.Views.Windows.Window_AddNewHouse"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:vm="clr-namespace:MyBudget.ViewModels"
+        xmlns:serv="clr-namespace:MyBudget.Services"
+        xmlns:cmd="clr-namespace:MyBudget.Commands"
+        xmlns:l="clr-namespace:MyBudget"        
+        Title="{Binding Title}" Height="350" Width="667" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:AddNewHouse_ViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
+            <Button Content="Отмена" Height="30" Width="80"
+                    HorizontalAlignment="Left" 
+                    Margin="5"
+                    Style="{StaticResource CloseButtonStyle}" IsCancel="True">
+            </Button>
+            <Button Content="Добавить" Height="30" Width="80" 
+                    HorizontalAlignment="Right" Margin="5"
+                    Style="{StaticResource CheckButtonStyle}">
+            </Button>
+        </UniformGrid>
+        <DockPanel DockPanel.Dock="Left" Width="400" Margin="5">
+            <TextBlock DockPanel.Dock="Top" 
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="3,3"
+                       FontSize="13"
+                       Foreground="DarkBlue"
+                       FontFamily="Arial"
+                       FontWeight="Bold"
+                       Text="Адреса:"/>
+            <DataGrid ItemsSource="{Binding Source={x:Static serv:Collection.Houses}}" DockPanel.Dock="Top" 
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False" 
+                      CanUserResizeColumns="False"
+                      CanUserReorderColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ п/п" 
+                                        Width="45"
+                                        Binding="{Binding Path=IdHouse}"/>
+                    <DataGridTextColumn Header="Город" 
+                                        Width="85"
+                                        Binding="{Binding Path=Sity}"/>
+                    <DataGridTextColumn Header="Улица" 
+                                        Width="100"
+                                        Binding="{Binding Path=Street}"/>
+                    <DataGridTextColumn Header="№ дома" 
+                                            Width="*"
+                                            Binding="{Binding Path=NumberHouse}"/>
+                    <DataGridTextColumn Header="№ квартиры" 
+                                            Width="*"
+                                            Binding="{Binding Path=NumberAppartament}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Right">
+            <Grid Margin="0,21,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="5,10,0,0"
+                           Text="Введите город"/>
+                <TextBox Grid.Row="0" 
+                         VerticalAlignment="Bottom" 
+                         Margin="3,0,15,15"
+                         Text="{Binding NewSity}"/>
+                <TextBlock Grid.Row="1"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="5,10,0,0"
+                           Text="Введите улицу"/>
+                <TextBox Grid.Row="1" 
+                         VerticalAlignment="Bottom" 
+                         Margin="3,0,15,15"
+                         Text="{Binding Path=NewStreet}"/>
+                <TextBlock Grid.Row="2"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="5,10,0,0"
+                           Text="Введите номер дома:"/>
+                <TextBox Grid.Row="2" 
+                         VerticalAlignment="Top"
+                         Margin="3,30,15,15"
+                         Text="{Binding NewHouse}"/>
+                <TextBlock Grid.Row="3"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="5,10,0,0"
+                           Text="Введите номер квартиры:"/>
+                <TextBox Grid.Row="3" 
+                         VerticalAlignment="Top" 
+                         Margin="3,30,15,15"
+                         Text="{Binding NewAppartament}"/>
+            </Grid>
+        </DockPanel>
+    </DockPanel>
+
+</Window>
