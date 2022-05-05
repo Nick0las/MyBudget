@@ -38,7 +38,7 @@
                               FontFamily="Sylfaen" 
                               FontSize="14">
                         <MenuItem.Command>
-                            <cmd:OpenAddNewCard/>
+                            <cmd:OpenAddNewCardCommand/>
                         </MenuItem.Command>
                     </MenuItem>
                     <MenuItem Header="Вид поступления" 
@@ -46,9 +46,9 @@
                               FontStyle="Normal" 
                               FontFamily="Sylfaen" 
                               FontSize="14">
-                        <!--<MenuItem.Command>
-                            <cmd:AddNewTypeTransferCommand/>
-                        </MenuItem.Command>-->
+                        <MenuItem.Command>
+                            <cmd:OpenAddNewTypeTransferCommand/>
+                        </MenuItem.Command>
                     </MenuItem>
                     <MenuItem Header="Дом" 
                               FontWeight="Normal"  

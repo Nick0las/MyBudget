@@ -5,14 +5,13 @@ using System.Windows;
 
 namespace MyBudget.Commands
 {
-    class OpenAddNewCard : Command
+    class OpenAddNewTypeTransferCommand : Command
     {
-        private Window_AddNewCard _Window;
+        private Window_AddNewTypeTransfer _Window;
         public override bool CanExecute(object parameter) => _Window == null;
-
         public override void Execute(object parameter)
         {
-            Window_AddNewCard window = new Window_AddNewCard
+            Window_AddNewTypeTransfer window = new Window_AddNewTypeTransfer
             {
                 Owner = Application.Current.MainWindow
             };
