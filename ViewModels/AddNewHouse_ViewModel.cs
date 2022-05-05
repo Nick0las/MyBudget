@@ -1,7 +1,14 @@
-﻿using MyBudget.Services;
+﻿using Microsoft.Data.Sqlite;
+using MyBudget.Commands;
+using MyBudget.Data;
+using MyBudget.Models;
+using MyBudget.Services;
 using MyBudget.Services.Interfaces;
 using MyBudget.ViewModels.Base;
 using System;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
@@ -51,8 +58,8 @@ namespace MyBudget.ViewModels
             }
         }
 
-        private int? _newAppartament = null;
-        public int? NewAppartament
+        private string _newAppartament = null;
+        public string NewAppartament
         {
             get { return _newAppartament; }
             set
@@ -63,12 +70,61 @@ namespace MyBudget.ViewModels
         }
         #endregion
 
+        #region Команда добавления нового адреса
+        public ICommand AddNewHouseCmd { get; }
+        private bool CanAddNewHouseCmdExecute(object p) => true;
+        private void OnAddNewHouseCmdExecuted(object p)
+        {
+            if(NewSity is null or "" || NewStreet is null or "" || NewHouse is null or "" || NewAppartament is null or "")
+            {
+                MessageBox.Show("Заполните все поля!", "Ошибка!");
+            }
+            else
+            {
+                House home = new();
+                home.Sity = NewSity;
+                home.Street = NewStreet;
+                home.NumberHouse = NewHouse;
+                home.NumberAppartament = Convert.ToInt32(NewAppartament);
+                AddNewHouse(home);
+                Collection.Houses.Clear();
+                IDownloadHouse.ShowHouse(Collection.Houses);
+                MessageBox.Show("Операция выполнена", "Успех!");
+                NewSity = "";
+                NewStreet = "";
+                NewHouse = "";
+                NewAppartament = "";
+            }
+        }
+
+        #endregion
+
         #region Конструктор
         public AddNewHouse_ViewModel()
         {
+            AddNewHouseCmd = new LamdaCommand(OnAddNewHouseCmdExecuted, CanAddNewHouseCmdExecute);
             Collection.Houses.Clear();
             IDownloadHouse.ShowHouse(Collection.Houses);
         }
+        #endregion
+
+        #region метод добавления нового дома
+        private void AddNewHouse(House home)
+        {
+            //string id = "null, ";
+            string sity = "'" + home.Sity + "', ";
+            string street = "'" + home.Street + "', ";
+            string house = "'" + home.NumberHouse + "', ";
+            int appartament = home.NumberAppartament;
+
+            string sqlAddNewHouse = "INSERT INTO house VALUES (NULL, " + sity + street + house + appartament + ")";
+            ConnectionDB connection = new();
+            connection.OpenConnection();
+            SqliteCommand cmdInsertNewHouse = new(sqlAddNewHouse, connection.GetConnection());
+            cmdInsertNewHouse.ExecuteNonQuery();
+            connection.CloseConnection();
+        }
+
         #endregion
     }
 }

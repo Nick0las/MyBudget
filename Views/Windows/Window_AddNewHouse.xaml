@@ -22,7 +22,8 @@
             </Button>
             <Button Content="Добавить" Height="30" Width="80" 
                     HorizontalAlignment="Right" Margin="5"
-                    Style="{StaticResource CheckButtonStyle}">
+                    Style="{StaticResource CheckButtonStyle}"
+                    Command="{Binding AddNewHouseCmd}">
             </Button>
         </UniformGrid>
         <DockPanel DockPanel.Dock="Left" Width="400" Margin="5">
