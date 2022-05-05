@@ -1,0 +1,114 @@
+﻿<Window x:Class="MyBudget.Views.Windows.Window_AddNewUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyBudget.Views.Windows"        
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:vm="clr-namespace:MyBudget.ViewModels"
+        xmlns:serv="clr-namespace:MyBudget.Services"
+        xmlns:cmd="clr-namespace:MyBudget.Commands"
+        xmlns:l="clr-namespace:MyBudget"          
+        Title="{Binding Title}" Height="350" Width="500"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:AddNewUser_ViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
+            <Button Content="Отмена" Height="30" Width="80"
+                    HorizontalAlignment="Left" 
+                    Margin="5"
+                    Style="{StaticResource CloseButtonStyle}" IsCancel="True">
+            </Button>
+            <Button Content="Добавить" Height="30" Width="80" 
+                    HorizontalAlignment="Right" Margin="5"
+                    Style="{StaticResource CheckButtonStyle}" IsDefault="True"
+                    Command="{Binding AddNewUserCmd}">
+            </Button>
+        </UniformGrid>
+        <DockPanel DockPanel.Dock="Left" Width="300" Margin="5">
+            <TextBlock DockPanel.Dock="Top" 
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="3,3"
+                       FontSize="13"
+                       Foreground="DarkBlue"
+                       FontFamily="Arial"
+                       FontWeight="Bold"
+                       Text="Члены семьи:"/>
+            <DataGrid x:Name="DataGridWindowNewUser"
+                      ItemsSource="{Binding Source={x:Static serv:Collection.Users}}"
+                      AutoGenerateColumns="False"
+                      DockPanel.Dock="Top" 
+                      CanUserAddRows="False" 
+                      CanUserResizeColumns="False"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Имя" 
+                                        Width="85"
+                                        Binding="{Binding Path=Name}"/>
+                    <DataGridTextColumn Header="Фамилия" 
+                                        Width="100"
+                                        Binding="{Binding Path=Surname}"/>
+                    <DataGridCheckBoxColumn Header="Ребенок"
+                                            Width="*"
+                                            Binding="{Binding Path=Child}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Right">
+            <Grid Margin="0,21,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="5,10,0,0"
+                           Text="Введите фамилию"/>
+                <TextBlock Grid.Row="1"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="5,10,0,0"
+                           Text="Введите имя"/>
+                <TextBox Name="TextBoxSurnameNewUser"
+                         Grid.Row="0" 
+                         VerticalAlignment="Bottom" 
+                         Margin="3,0,15,15"
+                         Text="{Binding Path=NewUserSurname, Mode=TwoWay}">
+                </TextBox>
+                <TextBox Name="TextBoxNameNewUser" 
+                         Grid.Row="1" 
+                         VerticalAlignment="Bottom" 
+                         Margin="3,0,15,15"
+                         Text="{Binding Path=NewUserName, Mode=TwoWay}"/>
+                <TextBlock Grid.Row="2" 
+                           FontSize="12" 
+                           Foreground="DarkBlue"
+                           FontWeight="Bold"
+                           Margin="5,0,0,0"
+                           Text="Ребенок"/>
+                <CheckBox Grid.Row="2"
+                          Height="18"                          
+                          HorizontalAlignment="Left"
+                          Margin="65,2,0,100"
+                          IsChecked="{Binding NewUserChild}"/>
+            </Grid>
+        </DockPanel>
+    </DockPanel>
+
+</Window>

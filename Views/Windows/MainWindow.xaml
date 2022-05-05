@@ -1,0 +1,403 @@
+﻿<Window x:Class="MyBudget.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:vm="clr-namespace:MyBudget.ViewModels"
+        xmlns:serv="clr-namespace:MyBudget.Services"
+        xmlns:cmd="clr-namespace:MyBudget.Commands"
+        xmlns:l="clr-namespace:MyBudget"        
+        Title="{Binding Title}" Height="635" Width="1025"
+        WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Alt" Key="F4" Command="{Binding CloseAppCmd}"/>
+    </Window.InputBindings>
+    <Window.DataContext>
+        <vm:MainWindow_ViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <serv:Collection x:Key="coll"/>
+    </Window.Resources>
+    <DockPanel Background="LightBlue">
+        <Menu DockPanel.Dock="Top" Height="23" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Khaki">
+            <MenuItem Header="Администрирование" VerticalAlignment="Center" Height="23" FontFamily="Segoe UI Semibold" FontWeight="Bold">
+                <MenuItem Header="Добавить:" FontWeight="Bold" FontStyle="Italic" FontFamily="Humnst777 Blk BT" >
+                    <MenuItem Header="Новый пользователь"
+                              FontWeight="Normal"  
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen" 
+                              FontSize="14">
+                        <MenuItem.Command>
+                            <cmd:OpenAddNewUserCommand/>
+                        </MenuItem.Command>
+                    </MenuItem>
+                    <MenuItem Header="Счет" 
+                              FontWeight="Normal"  
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen" 
+                              FontSize="14">
+                        <MenuItem.Command>
+                            <cmd:OpenAddNewCard/>
+                        </MenuItem.Command>
+                    </MenuItem>
+                    <MenuItem Header="Вид поступления" 
+                              FontWeight="Normal"  
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen" 
+                              FontSize="14">
+                        <!--<MenuItem.Command>
+                            <cmd:AddNewTypeTransferCommand/>
+                        </MenuItem.Command>-->
+                    </MenuItem>
+                    <MenuItem Header="Дом" 
+                              FontWeight="Normal"  
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen" 
+                              FontSize="14">
+                        <!--<MenuItem.Command>
+                            <cmd:AddNewHouseCommand/>
+                        </MenuItem.Command>-->
+                    </MenuItem>
+                    <MenuItem Header="Провайдер" 
+                              FontWeight="Normal"  
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen" 
+                              FontSize="14">
+                        <!--<MenuItem.Command>
+                            <cmd:AddNewProviderCommand/>
+                        </MenuItem.Command>-->
+                    </MenuItem>
+                    <MenuItem Header="Услуги провайдера"
+                              FontWeight="Normal"  
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen" 
+                              FontSize="14">
+                        <!--<MenuItem.Command>
+                            <cmd:AddNewProviderServicesCommand/>
+                        </MenuItem.Command>-->
+                    </MenuItem>
+                    <MenuItem Header="Вид траты (авто)" 
+                              FontWeight="Normal"  
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen" 
+                              FontSize="14">
+                        <!--<MenuItem.Command>
+                            <cmd:AddNewTypeCostsAutoCommand/>
+                        </MenuItem.Command>-->
+                    </MenuItem>
+                    <MenuItem Header="Авто" 
+                              FontWeight="Normal"  
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen" 
+                              FontSize="14">
+                        <!--<MenuItem.Command>
+                            <cmd:AddNewAutoCommand/>
+                        </MenuItem.Command>-->
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Выход   Alt+F4" 
+                          FontWeight="Bold" 
+                          FontFamily="Segoe UI Semibold"
+                          Command="{Binding CloseAppCmd}">                    
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Расходы" 
+                      FontWeight="Bold"
+                      VerticalAlignment="Center" 
+                      FontFamily="Segoe UI Semibold" 
+                      Height="23">
+                <MenuItem Header="Добавить расходы в БД" 
+                          FontWeight="Bold" 
+                          FontStyle="Italic" 
+                          FontFamily="Humnst777 Blk BT" >
+                    <MenuItem Header="Комунальные услуги" 
+                              FontWeight="Bold" FontStyle="Italic" FontFamily="Humnst777 Blk BT">
+                        <MenuItem Header="Холодная вода" 
+                                  FontWeight="Normal"  
+                                  FontStyle="Normal" 
+                                  FontFamily="Sylfaen" 
+                                  FontSize="14">
+                            <!--<MenuItem.Command>
+                                <cmd:AddColdWaterCommand/>
+                            </MenuItem.Command>-->
+                        </MenuItem>
+                        <MenuItem Header="Горячая вода" 
+                                  FontWeight="Normal"  
+                                  FontStyle="Normal" 
+                                  FontFamily="Sylfaen" 
+                                  FontSize="14">
+                            <!--<MenuItem.Command>
+                                <cmd:AddHotWaterCommand/>
+                            </MenuItem.Command>-->
+                        </MenuItem>
+                        <MenuItem Header="Водоотведение" 
+                                  FontWeight="Normal"  
+                                  FontStyle="Normal" 
+                                  FontFamily="Sylfaen"
+                                  FontSize="14">
+                            <!--<MenuItem.Command>
+                                <cmd:AddWaterRemoveCommand/>
+                            </MenuItem.Command>-->
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Экология" 
+                                  FontWeight="Normal"  
+                                  FontStyle="Normal" 
+                                  FontFamily="Sylfaen" 
+                                  FontSize="14">
+                            <!--<MenuItem.Command>
+                                <cmd:AddEcologyCommand/>
+                            </MenuItem.Command>-->
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="Связь"  
+                              FontWeight="Bold" 
+                              FontStyle="Italic" 
+                              FontFamily="Humnst777 Blk BT">
+                        <!--<MenuItem.Command>
+                            <cmd:AddCostsProviderCommand/>
+                        </MenuItem.Command>-->
+                    </MenuItem>
+                    <MenuItem Header="Авто" 
+                              FontWeight="Normal"  
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen" 
+                              FontSize="14">
+                        <!--<MenuItem.Command>
+                            <cmd:AddCostsAutoCommand/>
+                        </MenuItem.Command>-->
+                    </MenuItem>
+                    <MenuItem Header="Дети" 
+                              FontWeight="Normal"  
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen" 
+                              FontSize="14">
+                        <!--<MenuItem.Command>
+                            <cmd:AddCostsChildrenCommand/>
+                        </MenuItem.Command>-->
+                    </MenuItem>
+                    <MenuItem Header="Другие траты" 
+                              FontWeight="Normal"  
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen" 
+                              FontSize="14">
+                        <!--<MenuItem.Command>
+                            <cmd:AddOtherCostsCommand/>
+                        </MenuItem.Command>-->
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Посмотреть расходы" 
+                          FontWeight="Bold" 
+                          FontStyle="Italic"
+                          FontFamily="Humnst777 Blk BT" >
+                    <MenuItem Header="Комунальные услуги" 
+                              FontWeight="Bold" 
+                              FontStyle="Italic" 
+                              FontFamily="Humnst777 Blk BT">
+                        <MenuItem Header="Холодная вода" 
+                                  FontWeight="Normal"  
+                                  FontStyle="Normal" 
+                                  FontFamily="Sylfaen" 
+                                  FontSize="14"/>
+                        <MenuItem Header="Горячая вода"
+                                  FontWeight="Normal"  
+                                  FontStyle="Normal" 
+                                  FontFamily="Sylfaen"
+                                  FontSize="14"/>
+                        <MenuItem Header="Водоотведение" 
+                                  FontWeight="Normal" 
+                                  FontStyle="Normal" 
+                                  FontFamily="Sylfaen"
+                                  FontSize="14"/>
+                        <Separator/>
+                        <MenuItem Header="Экология" 
+                                  FontWeight="Normal" 
+                                  FontStyle="Normal" 
+                                  FontFamily="Sylfaen"
+                                  FontSize="14"/>
+                    </MenuItem>
+                    <MenuItem Header="Связь"  
+                              FontWeight="Bold" 
+                              FontStyle="Italic" 
+                              FontFamily="Humnst777 Blk BT">
+                        <MenuItem Header="Телефон" 
+                                  FontWeight="Normal" 
+                                  FontStyle="Normal"
+                                  FontFamily="Sylfaen" 
+                                  FontSize="14"/>
+                        <MenuItem Header="Интернет" 
+                                  FontWeight="Normal" 
+                                  FontStyle="Normal" 
+                                  FontFamily="Sylfaen"
+                                  FontSize="14"/>
+                        <MenuItem Header="Домофон" 
+                                  FontWeight="Normal" 
+                                  FontStyle="Normal" 
+                                  FontFamily="Sylfaen" 
+                                  FontSize="14"/>
+                    </MenuItem>
+                    <MenuItem Header="Авто" 
+                              FontWeight="Normal" 
+                              FontStyle="Normal"
+                              FontFamily="Sylfaen"
+                              FontSize="14"/>
+                    <MenuItem Header="Дети" 
+                              FontWeight="Normal" 
+                              FontStyle="Normal"
+                              FontFamily="Sylfaen"
+                              FontSize="14"/>
+                    <MenuItem Header="Другие траты"
+                              FontWeight="Normal" 
+                              FontStyle="Normal" 
+                              FontFamily="Sylfaen"
+                              FontSize="14"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Доходы" 
+                      FontWeight="Bold" 
+                      VerticalAlignment="Center" 
+                      FontFamily="Segoe UI Semibold" 
+                      Height="23">
+                <MenuItem Header="Добавить (₽)"
+                          FontWeight="Normal"  
+                          FontStyle="Normal" 
+                          FontFamily="Sylfaen"
+                          FontSize="14">
+                    <!--<MenuItem.Command>
+                        <cmd:AddNewTransferCommand/>
+                    </MenuItem.Command>-->
+                </MenuItem>
+                <MenuItem Header="Просмотр доходов:" 
+                          FontWeight="Normal"  
+                          FontStyle="Normal" 
+                          FontFamily="Sylfaen" 
+                          FontSize="14"/>
+            </MenuItem>
+        </Menu>
+        <ToolBar DockPanel.Dock="Top" Height="50" HorizontalAlignment="Stretch" Margin="0,2,0,0" Background="DarkSalmon" SnapsToDevicePixels="True">
+            <Button Height="35" Width="80" 
+                    HorizontalAlignment="Right" 
+                    Margin="5"
+                    Style="{StaticResource CastomButtonStyle}">
+                <fa:ImageAwesome Foreground="Red" Height="20" Icon="Solid_UserPlus"/>
+                <Button.Command>
+                    <cmd:OpenAddNewUserCommand/>
+                </Button.Command>
+            </Button>
+            <Separator/>
+            <Button Height="35" Width="80" 
+                    HorizontalAlignment="Right" 
+                    Margin="5"
+                    Style="{StaticResource CastomButtonStyle}">
+                <fa:ImageAwesome 
+                    Foreground="Green" 
+                    Height="20" 
+                    Icon="Solid_DollarSign"/>
+                <!--<Button.Command>
+                    <cmd:AddNewTransferCommand/>
+                </Button.Command>-->
+            </Button>
+            <Separator/>
+            <Button Height="35" Width="80" 
+                    HorizontalAlignment="Right" 
+                    Margin="5"
+                    Style="{StaticResource CastomButtonStyle}">
+                <fa:ImageAwesome
+                    Foreground="DarkCyan" 
+                    Height="20" 
+                    Icon="Solid_Grin"/>
+            </Button>
+            <Separator/>
+        </ToolBar>
+        <StatusBar DockPanel.Dock="Bottom" Height="25" HorizontalAlignment="Stretch" Background="LightGray"/>
+        <Grid DockPanel.Dock="Left" 
+              Width="180"
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch"
+              Grid.ShowGridLines ="False"
+              Background="Yellow">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="130"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="10,10,0,0"
+                       Width="130"
+                       Height="25"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       FontSize="16"
+                       Foreground="DarkBlue"
+                       FontFamily="Arial"
+                       FontWeight="Bold"
+                       Text="Общий баланс:"/>
+            <TextBlock x:Name="Label_AllBalance"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Height="25"
+                   Width="120"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="5,40,0,0"
+                   FontSize="25"
+                   Foreground="Red"
+                   FontFamily="Arial"
+                   FontWeight="Bold"
+                   Text="{Binding Path=Kassa[0].CashBalance}"/>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="10,40,15,0"
+                       Width="30"
+                       Height="30"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Right"
+                       FontSize="25"
+                       Foreground="DarkBlue"
+                       FontFamily="Arial"
+                       FontWeight="Bold"
+                       Text="(₽):"/>
+            <DataGrid ItemsSource="{Binding Source={x:Static serv:Collection.Cards}}"
+                      Grid.Row="1" Grid.Column="0"
+                      AutoGenerateColumns="False"
+                      CanUserReorderColumns="False" 
+                      CanUserAddRows="False"
+                      CanUserResizeColumns="False"
+                      IsReadOnly="True"
+                      GridLinesVisibility="Vertical"
+                      VerticalGridLinesBrush="DarkGray">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="7*" 
+                                        Header="Карта"                                        
+                                        Binding="{Binding Path=CardNumber}"/>
+                    <DataGridTextColumn Width="5*" 
+                                        Header="Баланс"                                         
+                                        Binding="{Binding Path=CardBalance}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Column="0" Grid.Row="2"
+                    Style="{StaticResource CastomButtonStyle}"
+                    Content="Просмотр всех расходов"/>
+            <Button Grid.Column="0" 
+                    Grid.Row="3"
+                    Style="{StaticResource CastomButtonStyle}"
+                    Content="Просмотр всех доходов"/>
+            <Calendar Grid.Row="4" 
+                      Grid.RowSpan="2"
+                      Margin="0"/>
+        </Grid>
+        <Grid VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch">
+            <TabControl>
+                <TabItem Header="Расходы"/>
+                <TabItem Header="График"/>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+
+</Window>
