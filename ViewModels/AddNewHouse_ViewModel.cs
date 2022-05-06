@@ -58,7 +58,7 @@ namespace MyBudget.ViewModels
             }
         }
 
-        private string _newAppartament = null;
+        private string _newAppartament;
         public string NewAppartament
         {
             get { return _newAppartament; }
@@ -110,13 +110,11 @@ namespace MyBudget.ViewModels
 
         #region метод добавления нового дома
         private void AddNewHouse(House home)
-        {
-            //string id = "null, ";
+        {            
             string sity = "'" + home.Sity + "', ";
             string street = "'" + home.Street + "', ";
             string house = "'" + home.NumberHouse + "', ";
             int appartament = home.NumberAppartament;
-
             string sqlAddNewHouse = "INSERT INTO house VALUES (NULL, " + sity + street + house + appartament + ")";
             ConnectionDB connection = new();
             connection.OpenConnection();

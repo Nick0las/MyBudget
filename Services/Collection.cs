@@ -23,5 +23,8 @@ namespace MyBudget.Services
         
         // Коллекция всех добавленных домов
         public static ObservableCollection<House> Houses { get; set; } = new ObservableCollection<House>();
+
+        // Коллекция добавленных провайдеров
+        public static ObservableCollection<Provider> Providers { get; set; } = new ObservableCollection<Provider>();
     }
 }

@@ -43,8 +43,12 @@
                       CanUserResizeColumns="False"
                       ItemsSource="{Binding Source={x:Static serv:Collection.CardHolders}}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Имя" Width="85" Binding="{Binding Path=NameUser}"/>
-                    <DataGridTextColumn Header="Фамилия" Width="100" Binding="{Binding Path=SurnameUser}"/>
+                    <DataGridTextColumn Header="Имя"
+                                        Width="85" 
+                                        Binding="{Binding Path=NameUser}"/>
+                    <DataGridTextColumn Header="Фамилия" 
+                                        Width="100" 
+                                        Binding="{Binding Path=SurnameUser}"/>
                     <DataGridTextColumn Header="№ карты" Width="*" Binding="{Binding Path=CardNumber}"/>
                 </DataGrid.Columns>
             </DataGrid>

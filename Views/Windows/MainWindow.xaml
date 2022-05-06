@@ -64,9 +64,9 @@
                               FontStyle="Normal" 
                               FontFamily="Sylfaen" 
                               FontSize="14">
-                        <!--<MenuItem.Command>
-                            <cmd:AddNewProviderCommand/>
-                        </MenuItem.Command>-->
+                        <MenuItem.Command>
+                            <cmd:OpenAddNewProviderCommand/>
+                        </MenuItem.Command>
                     </MenuItem>
                     <MenuItem Header="Услуги провайдера"
                               FontWeight="Normal"  
