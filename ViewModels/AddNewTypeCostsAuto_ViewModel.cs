@@ -39,7 +39,7 @@ namespace MyBudget.ViewModels
         private bool CanAddNewTypeCostsAutoCmdExecute(object p) => true;
         private void OnAddNewTypeCostsAutoCmdExecuted(object p)
         {
-            MessageBox.Show("Проверка комады.");
+            MessageBox.Show("Проверка команды.");
         }
 
         #endregion
