@@ -91,9 +91,9 @@
                               FontStyle="Normal" 
                               FontFamily="Sylfaen" 
                               FontSize="14">
-                        <!--<MenuItem.Command>
-                            <cmd:AddNewAutoCommand/>
-                        </MenuItem.Command>-->
+                        <MenuItem.Command>
+                            <cmd:OpenAddNewAutoCommand/>
+                        </MenuItem.Command>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Выход   Alt+F4" 

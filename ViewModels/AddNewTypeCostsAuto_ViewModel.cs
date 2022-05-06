@@ -55,7 +55,6 @@ namespace MyBudget.ViewModels
                 Collection.TypesCostsAuto.Clear();
                 IDownloadTypeCostsAuto.ShowTypeCostsAuto(Collection.TypesCostsAuto);
             }
-            
         }
 
         #endregion
