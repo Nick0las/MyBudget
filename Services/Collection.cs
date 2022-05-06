@@ -20,11 +20,16 @@ namespace MyBudget.Services
 
         //Коллекция всех добавленных видов поступления
         public static ObservableCollection<TypeTransfer> AllTypeTransfer { get; set; } = new ObservableCollection<TypeTransfer>();
-        
+
         // Коллекция всех добавленных домов
         public static ObservableCollection<House> Houses { get; set; } = new ObservableCollection<House>();
 
         // Коллекция добавленных провайдеров
         public static ObservableCollection<Provider> Providers { get; set; } = new ObservableCollection<Provider>();
+
+        // Коллекция для хранения данных об услугах провайдера (для пользователя) из запроаса SELECT provider JOIN services_provider
+        public static ObservableCollection<ProviderJoinServices> ProviderJoinServices { get; set; } = new ObservableCollection<ProviderJoinServices>();
+
+        
     }
 }

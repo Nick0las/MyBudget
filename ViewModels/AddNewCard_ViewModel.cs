@@ -126,7 +126,7 @@ namespace MyBudget.ViewModels
             string sqlQueryNewCard = "INSERT INTO user_cash VALUES (NUll" + ", " + id_User4Db + ", " + cardNumber4Db + ", " + balance4Db + ")";
             ConnectionDB connection = new ConnectionDB();
             connection.OpenConnection();
-            SqliteCommand cmdInsertNewCard = new SqliteCommand(sqlQueryNewCard, connection.GetConnection());
+            SqliteCommand cmdInsertNewCard = new(sqlQueryNewCard, connection.GetConnection());
             cmdInsertNewCard.ExecuteNonQuery();
             connection.CloseConnection();
         }

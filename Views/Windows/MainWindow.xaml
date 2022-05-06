@@ -73,9 +73,9 @@
                               FontStyle="Normal" 
                               FontFamily="Sylfaen" 
                               FontSize="14">
-                        <!--<MenuItem.Command>
-                            <cmd:AddNewProviderServicesCommand/>
-                        </MenuItem.Command>-->
+                        <MenuItem.Command>
+                            <cmd:OpenAddNewProviderServicesCommand/>
+                        </MenuItem.Command>
                     </MenuItem>
                     <MenuItem Header="Вид траты (авто)" 
                               FontWeight="Normal"  

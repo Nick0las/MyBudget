@@ -52,11 +52,9 @@ namespace MyBudget.ViewModels
                 AddNewProvider(provider);
                 Collection.Providers.Clear();
                 IDownloadProviders.ShowAllProviders(Collection.Providers);
-                MessageBox.Show("Команда выполнена","Успех!=)");
+                //MessageBox.Show("Команда выполнена","Успех!=)");
                 NameProvider = "";
             }
-            
-
         }
 
         #region Конструктор
