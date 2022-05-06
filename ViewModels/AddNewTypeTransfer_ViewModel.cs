@@ -78,8 +78,8 @@ namespace MyBudget.ViewModels
             string sqlAddNewType = "INSERT INTO type_transfer VALUES (null, " + type +")";
             ConnectionDB connection = new ConnectionDB();
             connection.OpenConnection();
-            SqliteCommand cmdInsertNewType = new SqliteCommand(sqlAddNewType, connection.GetConnection());
-            cmdInsertNewType.ExecuteNonQuery();
+            SqliteCommand cmdInsertNewTypeTransfer = new SqliteCommand(sqlAddNewType, connection.GetConnection());
+            cmdInsertNewTypeTransfer.ExecuteNonQuery();
             connection.CloseConnection();
         }
         #endregion
