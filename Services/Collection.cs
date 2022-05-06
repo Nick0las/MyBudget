@@ -30,6 +30,9 @@ namespace MyBudget.Services
         // Коллекция для хранения данных об услугах провайдера (для пользователя) из запроаса SELECT provider JOIN services_provider
         public static ObservableCollection<ProviderJoinServices> ProviderJoinServices { get; set; } = new ObservableCollection<ProviderJoinServices>();
 
-        
+        // Коллекция для хранения типов трат на авто
+        public static ObservableCollection<TypeCostsAuto> TypesCostsAuto { get; set; } = new ObservableCollection<TypeCostsAuto>();
+
+
     }
 }

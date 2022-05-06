@@ -82,9 +82,9 @@
                               FontStyle="Normal" 
                               FontFamily="Sylfaen" 
                               FontSize="14">
-                        <!--<MenuItem.Command>
-                            <cmd:AddNewTypeCostsAutoCommand/>
-                        </MenuItem.Command>-->
+                        <MenuItem.Command>
+                            <cmd:OpenAddNewTypeCostsAutoCommand/>
+                        </MenuItem.Command>
                     </MenuItem>
                     <MenuItem Header="Авто" 
                               FontWeight="Normal"  
