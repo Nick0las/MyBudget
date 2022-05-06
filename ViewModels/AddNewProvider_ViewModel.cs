@@ -36,6 +36,7 @@ namespace MyBudget.ViewModels
         }
         #endregion
 
+        #region Команда добавления нового провайдера
         public ICommand AddNewProviderCmd { get; }
         private bool CanAddNewProviderCmdExecute(object p) => true;
         private void OnAddNewProviderCmdExecuted(object p)
@@ -56,6 +57,8 @@ namespace MyBudget.ViewModels
                 NameProvider = "";
             }
         }
+        #endregion
+
 
         #region Конструктор
         public AddNewProvider_ViewModel()
