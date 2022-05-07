@@ -37,7 +37,8 @@ namespace MyBudget.Services.Interfaces
         {
             //Команда получения данных к БД
             string sqlRequestShowCard =
-                "SELECT name, surname, card_number FROM user JOIN user_cash WHERE user.id_user = user_cash.id_user";
+                "SELECT user.id_user, name, surname, card_number FROM user JOIN user_cash WHERE user.id_user = user_cash.id_user";
+                //"SELECT name, surname, card_number FROM user JOIN user_cash WHERE user.id_user = user_cash.id_user";
             ConnectionDB connection = new ConnectionDB();
             connection.OpenConnection();
             SqliteCommand cmdAllCardUsers = new SqliteCommand
@@ -47,9 +48,9 @@ namespace MyBudget.Services.Interfaces
             {
                 CardHolder cardUser = new CardHolder
                 {
-                    NameUser = sqliteDataReader[0].ToString(),
-                    SurnameUser = sqliteDataReader[1].ToString(),
-                    CardNumber = sqliteDataReader[2].ToString()
+                    NameUser = sqliteDataReader[1].ToString(),
+                    SurnameUser = sqliteDataReader[2].ToString(),
+                    CardNumber = sqliteDataReader[3].ToString()
                 };
                 cards.Add(cardUser);
             }

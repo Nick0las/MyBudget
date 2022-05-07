@@ -8,7 +8,7 @@
         xmlns:serv="clr-namespace:MyBudget.Services"
         xmlns:cmd="clr-namespace:MyBudget.Commands"
         xmlns:l="clr-namespace:MyBudget"      
-        Title="{Binding Title}" Height="470" Width="530" ResizeMode="NoResize"
+        Title="{Binding Title}" Height="470" Width="580" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <vm:AddNewTransfer_ViewModel/>
@@ -22,10 +22,11 @@
             </Button>
             <Button Content="Добавить" Height="30" Width="80" 
                     HorizontalAlignment="Right" Margin="5"
-                    Style="{StaticResource CheckButtonStyle}">
+                    Style="{StaticResource CheckButtonStyle}"
+                    Command="{Binding AddNewTransferCmd}">
             </Button>
         </UniformGrid>
-        <DockPanel DockPanel.Dock="Left" Width="300" Margin="5">
+        <DockPanel DockPanel.Dock="Left" Width="350" Margin="5">
             <TextBlock DockPanel.Dock="Top" 
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
@@ -39,11 +40,18 @@
                       AutoGenerateColumns="False"
                       CanUserReorderColumns="False" 
                       CanUserAddRows="False"
-                      CanUserResizeColumns="False">
+                      CanUserResizeColumns="False"
+                      ItemsSource="{Binding Source={x:Static serv:Collection.CardHolders}}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Имя" Width="85"/>
-                    <DataGridTextColumn Header="Фамилия" Width="100"/>
-                    <DataGridCheckBoxColumn Header="№ карты" Width="*"/>
+                    <DataGridTextColumn Header="Имя" 
+                                        Width="85"
+                                        Binding="{Binding Path=NameUser}"/>
+                    <DataGridTextColumn Header="Фамилия" 
+                                        Width="100"
+                                        Binding="{Binding Path=SurnameUser}"/>
+                    <DataGridTextColumn Header="№ карты" 
+                                            Width="*"
+                                            Binding="{Binding Path=CardNumber}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
@@ -119,11 +127,13 @@
                            Text="Выберите тип поступления:"/>
                 <ComboBox Grid.Row="3"
                           IsReadOnly="True"
-                          Height="20"
+                          Height="23"
                           Background="LightGray"
                           VerticalAlignment="Top" 
-                          Margin="3,18,3,0"/>
-                
+                          Margin="3,18,3,0"
+                          ItemsSource="{Binding Source={x:Static serv:Collection.AllTypeTransfer}}"
+                          DisplayMemberPath="TittleTypeTransfer"
+                          SelectedItem="{Binding SelectedTypeTransfer}"/>                
                 <TextBlock Grid.Row="4"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
