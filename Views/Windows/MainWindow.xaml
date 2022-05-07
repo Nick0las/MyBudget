@@ -264,9 +264,9 @@
                           FontStyle="Normal" 
                           FontFamily="Sylfaen"
                           FontSize="14">
-                    <!--<MenuItem.Command>
-                        <cmd:AddNewTransferCommand/>
-                    </MenuItem.Command>-->
+                    <MenuItem.Command>
+                        <cmd:OpenAddNewTransferCommand/>
+                    </MenuItem.Command>
                 </MenuItem>
                 <MenuItem Header="Просмотр доходов:" 
                           FontWeight="Normal"  
@@ -294,9 +294,9 @@
                     Foreground="Green" 
                     Height="20" 
                     Icon="Solid_DollarSign"/>
-                <!--<Button.Command>
-                    <cmd:AddNewTransferCommand/>
-                </Button.Command>-->
+                <Button.Command>
+                    <cmd:OpenAddNewTransferCommand/>
+                </Button.Command>
             </Button>
             <Separator/>
             <Button Height="35" Width="80" 
