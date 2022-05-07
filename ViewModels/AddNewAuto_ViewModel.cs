@@ -54,7 +54,8 @@ namespace MyBudget.ViewModels
                 AddNewAuto2DB(auto);
                 Collection.Autos.Clear();
                 IDowloadAllAuto.ShowAllAuto(Collection.Autos);
-                //MessageBox.Show("Команда привязана!", "Проверка привязки команды.");
+                NameAuto = "";
+                MessageBox.Show("Новый авто добавлен ", "Успех!");
             }
 
         }

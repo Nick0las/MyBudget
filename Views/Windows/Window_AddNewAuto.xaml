@@ -75,7 +75,11 @@
                          Grid.Row="0"                                                   
                          VerticalAlignment="Bottom" 
                          Margin="3,0,3,15"
-                         Text="{Binding NameAuto}"/>
+                         Text="{Binding NameAuto, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding AddNewAutoCmd}" Key="Return" />
+                    </TextBox.InputBindings>
+                </TextBox>
             </Grid>
         </DockPanel>
     </DockPanel>
