@@ -23,7 +23,7 @@
             <Button Content="Добавить" Height="30" Width="80" 
                     HorizontalAlignment="Right" Margin="5"
                     Style="{StaticResource CheckButtonStyle}"
-                    Command="{Binding AddNewAutoCmd}">
+                    Command="{Binding AddNewAutoCmd}" IsDefault="True">
             </Button>
         </UniformGrid>
         <DockPanel DockPanel.Dock="Left" Width="300" Margin="5">
@@ -40,10 +40,15 @@
                       AutoGenerateColumns="False"
                       CanUserReorderColumns="False" 
                       CanUserAddRows="False"
-                      CanUserResizeColumns="False">
+                      CanUserResizeColumns="False"
+                      ItemsSource="{Binding Source={x:Static serv:Collection.Autos}}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="№ п/п" Width="85"/>
-                    <DataGridTextColumn Header="Название авто" Width="*"/>
+                    <DataGridTextColumn Header="№ п/п" 
+                                        Width="85"
+                                        Binding="{Binding Path=IdAuto}"/>
+                    <DataGridTextColumn Header="Название авто" 
+                                        Width="*"
+                                        Binding="{Binding Path=NameAuto}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>

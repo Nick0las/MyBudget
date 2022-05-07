@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
-    internal class AddNewAuto_ViewModel : ViewModel_Base
+    internal class AddNewAuto_ViewModel : ViewModel_Base, IDowloadAllAuto
     {
         #region Заголовок окна
         private string _Title = "Новое авто";
@@ -43,7 +43,20 @@ namespace MyBudget.ViewModels
         private bool CanAddNewAutoCmdExecute(object p) => true;
         private void OnAddNewAutoCmdExecuted(object p)
         {
-            MessageBox.Show("Команда привязана!", "Проверка привязки команды.");
+            if(NameAuto is "" or null)
+            {
+                MessageBox.Show("Заполните текстовое поле!", "Ошибка");
+            }
+            else
+            {
+                Auto auto = new();
+                auto.NameAuto = NameAuto;
+                AddNewAuto2DB(auto);
+                Collection.Autos.Clear();
+                IDowloadAllAuto.ShowAllAuto(Collection.Autos);
+                //MessageBox.Show("Команда привязана!", "Проверка привязки команды.");
+            }
+
         }
         #endregion
 
@@ -51,7 +64,25 @@ namespace MyBudget.ViewModels
         public AddNewAuto_ViewModel()
         {
             AddNewAutoCmd = new LamdaCommand(OnAddNewAutoCmdExecuted, CanAddNewAutoCmdExecute);
+            Collection.Autos.Clear();
+            IDowloadAllAuto.ShowAllAuto(Collection.Autos);
         }
+        #endregion
+
+        #region Методы
+        //Добавление нового авто
+        private void AddNewAuto2DB(Auto auto)
+        {
+            string nameAuto = "'" + auto.NameAuto + "')";
+            string sqlQueryNewAuto = "INSERT INTO auto VALUES (NUll, " + nameAuto;
+            ConnectionDB connection = new ConnectionDB();
+            connection.OpenConnection();
+            SqliteCommand cmdInsertNewAuto = new(sqlQueryNewAuto, connection.GetConnection());
+            cmdInsertNewAuto.ExecuteNonQuery();
+            connection.CloseConnection();
+        }
+
+
         #endregion
     }
 }

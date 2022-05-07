@@ -33,6 +33,9 @@ namespace MyBudget.Services
         // Коллекция для хранения типов трат на авто
         public static ObservableCollection<TypeCostsAuto> TypesCostsAuto { get; set; } = new ObservableCollection<TypeCostsAuto>();
 
+        // Коллекция для хранения всех авто
+        public static ObservableCollection<Auto> Autos { get; set; } = new ObservableCollection<Auto>();
+
 
     }
 }
