@@ -12,5 +12,6 @@ namespace MyBudget.Models
         public string NameUser { get; set; }
         public string SurnameUser { get; set; }
         public string CardNumber { get; set; }
+        public int IdCard { get; set; }
     }
 }

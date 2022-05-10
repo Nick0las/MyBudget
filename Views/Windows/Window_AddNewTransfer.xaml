@@ -8,7 +8,7 @@
         xmlns:serv="clr-namespace:MyBudget.Services"
         xmlns:cmd="clr-namespace:MyBudget.Commands"
         xmlns:l="clr-namespace:MyBudget"      
-        Title="{Binding Title}" Height="470" Width="580" ResizeMode="NoResize"
+        Title="{Binding Title}" Height="470" Width="600" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <vm:AddNewTransfer_ViewModel/>
@@ -41,14 +41,15 @@
                       CanUserReorderColumns="False" 
                       CanUserAddRows="False"
                       CanUserResizeColumns="False"
-                      ItemsSource="{Binding Source={x:Static serv:Collection.CardHolders}}">
+                      ItemsSource="{Binding Source={x:Static serv:Collection.CardHolders}}"
+                      SelectedItem="{Binding Path=SelectedDataGridRow}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Имя" 
                                         Width="85"
-                                        Binding="{Binding Path=NameUser}"/>
+                                        Binding="{Binding Path=NameUser, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="Фамилия" 
                                         Width="100"
-                                        Binding="{Binding Path=SurnameUser}"/>
+                                        Binding="{Binding Path=SurnameUser, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="№ карты" 
                                             Width="*"
                                             Binding="{Binding Path=CardNumber}"/>
@@ -58,7 +59,7 @@
         <DockPanel DockPanel.Dock="Right">
             <Grid Margin="0,21,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition/>                    
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
@@ -92,13 +93,15 @@
                          IsReadOnly="True"
                          Background="LightGray"
                          VerticalAlignment="Bottom" 
-                         Margin="3,0,5,15"/>
+                         Margin="3,0,5,15"
+                         Text="{Binding Path=SelectedDataGridRow.NameUser}"/>
                 <TextBox x:Name="TextBoxSurname"
                          Grid.Row="1"
                          IsReadOnly="True"
                          Background="LightGray"
                          VerticalAlignment="Bottom" 
-                         Margin="3,0,5,15"/>
+                         Margin="3,0,5,15"
+                         Text="{Binding Path=SelectedDataGridRow.SurnameUser}"/>
 
                 <TextBlock Grid.Row="2"
                            HorizontalAlignment="Left"
@@ -114,8 +117,8 @@
                          IsReadOnly="True"
                          Background="LightGray"
                          VerticalAlignment="Bottom" 
-                         Margin="3,0,5,15"/>
-
+                         Margin="3,0,5,15"
+                         Text="{Binding Path=SelectedDataGridRow.CardNumber}"/>
                 <TextBlock Grid.Row="3"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
@@ -146,7 +149,8 @@
                 <TextBox x:Name="TextBoxNumberCard"
                          Grid.Row="4"
                          VerticalAlignment="Top"
-                         Margin="3,18,5,5"/>
+                         Margin="3,18,5,5"
+                         Text="{Binding Path=Summa}"/>
                 <TextBlock Grid.Row="5"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
@@ -159,7 +163,8 @@
                 <DatePicker Grid.Row="5"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Stretch"
-                            Margin="3,18,3,0"/>
+                            Margin="3,18,3,0"
+                            SelectedDate="{Binding Path=DateTransfer}"/>
             </Grid>
         </DockPanel>
     </DockPanel>

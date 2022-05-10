@@ -12,7 +12,7 @@ namespace MyBudget.Models
         public int IdTypeTransfer {get; set;}
         public int IdCard { get; set; }
         public decimal Summa { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public string Comment { get; set; }
     }
 }
