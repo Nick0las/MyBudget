@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
-    class AddExpensesColdWater_ViewModel : ViewModel_Base
+    class AddExpensesColdWater_ViewModel : ViewModel_Base, IDownloadHouse
     {
         #region Заголовок окна
         private string _Title = "Добавлние нового расхода холодной воды.";
@@ -24,6 +24,15 @@ namespace MyBudget.ViewModels
         }
         #endregion
 
+        #region Свойства, привязанные к окну
+        public House SelectesHouse { get; set; }
 
+        #endregion
+
+        public AddExpensesColdWater_ViewModel()
+        {
+            Collection.Houses.Clear();
+            IDownloadHouse.ShowHouse(Collection.Houses);
+        }
     }
 }

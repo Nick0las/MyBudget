@@ -118,9 +118,9 @@
                                   FontStyle="Normal" 
                                   FontFamily="Sylfaen" 
                                   FontSize="14">
-                            <!--<MenuItem.Command>
-                                <cmd:AddColdWaterCommand/>
-                            </MenuItem.Command>-->
+                            <MenuItem.Command>
+                                <cmd:OpenNewColdWater/>
+                            </MenuItem.Command>
                         </MenuItem>
                         <MenuItem Header="Горячая вода" 
                                   FontWeight="Normal"  
