@@ -35,17 +35,26 @@
                        FontFamily="Arial"
                        FontWeight="Bold"
                        Text="Расход холодной воды:"/>
-            <DataGrid DockPanel.Dock="Top" 
+            <DataGrid DockPanel.Dock="Top"
+                      IsReadOnly="True"
                       AutoGenerateColumns="False"
                       CanUserReorderColumns="False" 
                       CanUserAddRows="False"
-                      CanUserResizeColumns="False">
+                      CanUserResizeColumns="False"
+                      ItemsSource="{Binding Source={x:Static serv:Collection.ColdWaters}}"
+                      SelectedItem="{Binding Path=SelectedDataGrid}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Дом" Width="45"/>
-                    <DataGridTextColumn Header="Дата"/>
-                    <DataGridTextColumn Header="Пред.показ."/>
-                    <DataGridTextColumn Header="Текущ.показ."/>
-                    <DataGridTextColumn Header="Расход"/>
+                    <DataGridTextColumn Header="Дом" 
+                                        Width="45"
+                                        Binding="{Binding IdHouse}"/>
+                    <DataGridTextColumn Header="Дата"
+                                        Binding="{Binding DateColdWater}"/>
+                    <DataGridTextColumn Header="Пред.показ."
+                                        Binding="{Binding OldMetterColdWater}"/>
+                    <DataGridTextColumn Header="Текущ.показ."
+                                        Binding="{Binding NewMetterColdWater}"/>
+                    <DataGridTextColumn Header="Расход"
+                                        Binding="{Binding KubColdWater}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
@@ -77,16 +86,17 @@
                          VerticalAlignment="Top"
                          Margin="3,30,3,5"
                          ItemsSource="{Binding Source={x:Static serv:Collection.Houses}}"                         
-                         SelectedItem="{Binding SelectesHouse}">
+                         SelectedItem="{Binding SelectedHouse}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Sity}">
                                 <TextBlock.ToolTip>
                                     <ToolTip>
                                         <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding IdHouse}"/>
                                             <TextBlock Text="{Binding Street}"/>
                                             <TextBlock Text="{Binding NumberHouse}"/>
-                                            <TextBlock Text="{Binding NumberAppartament}"/>
+                                            <TextBlock Text="{Binding NumberAppartament}"/>                                            
                                         </StackPanel>
                                     </ToolTip>
                                 </TextBlock.ToolTip>
@@ -124,7 +134,8 @@
                          Grid.Row="1"
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
+                         Margin="3,30,3,5"
+                         Text="{Binding SelectedDataGrid.OldMetterColdWater}"/>
                 <TextBlock Grid.Column="0"
                            Grid.Row="2"
                            TextWrapping="Wrap"
@@ -140,7 +151,8 @@
                          Grid.Row="2"
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
+                         Margin="3,30,3,5"
+                         Text="{Binding NewMetter}"/>
                 <TextBlock Grid.Column="0"
                            Grid.Row="3"
                            TextWrapping="Wrap"
@@ -156,7 +168,8 @@
                          Grid.Row="3"
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
+                         Margin="3,30,3,5"
+                         Text="{Binding ExpenKub}"/>
                 <TextBlock Grid.Column="1"
                            Grid.Row="1"
                            TextWrapping="Wrap"
@@ -208,7 +221,7 @@
                          VerticalAlignment="Top" 
                          Margin="3,30,3,5"/>
 
-                <Border Grid.ColumnSpan="2" 
+                <!--<Border Grid.ColumnSpan="2" 
                         Grid.Row="0" 
                         BorderBrush="LightGray"
                         BorderThickness="1"/>
@@ -216,7 +229,7 @@
                         Grid.Row="1"
                         Grid.RowSpan="3"
                         BorderBrush="LightGray"
-                        BorderThickness="1"/>
+                        BorderThickness="1"/>-->
             </Grid>
         </DockPanel>
     </DockPanel>

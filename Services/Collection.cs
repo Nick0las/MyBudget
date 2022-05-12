@@ -36,6 +36,7 @@ namespace MyBudget.Services
         // Коллекция для хранения всех авто
         public static ObservableCollection<Auto> Autos { get; set; } = new ObservableCollection<Auto>();
 
-
+        // Коллекция для хранения данных о холодной воде
+        public static ObservableCollection<ColdWater> ColdWaters { get; set; } = new ObservableCollection<ColdWater>();
     }
 }

@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
-    class AddExpensesColdWater_ViewModel : ViewModel_Base, IDownloadHouse
+    class AddExpensesColdWater_ViewModel : ViewModel_Base, IDownloadHouse, IDownloadColdWater
     {
         #region Заголовок окна
         private string _Title = "Добавлние нового расхода холодной воды.";
@@ -25,14 +25,41 @@ namespace MyBudget.ViewModels
         #endregion
 
         #region Свойства, привязанные к окну
-        public House SelectesHouse { get; set; }
+        public House SelectedHouse { get; set; }
+
+        private ColdWater selectedDataGridColdWater;
+        public ColdWater SelectedDataGrid
+        {
+            get { return selectedDataGridColdWater; }
+            set
+            {
+                if (selectedDataGridColdWater != value)
+                {
+                    selectedDataGridColdWater = value;
+                    OnPropertyChanged("SelectedDataGrid");
+                }
+            }
+        }
+        
+        public int NewMetter
+        {
+            get;
+            set;
+        }
+        public int ExpenKub
+        {
+            get;
+            set;
+        }
 
         #endregion
 
         public AddExpensesColdWater_ViewModel()
         {
+            Collection.ColdWaters.Clear();
             Collection.Houses.Clear();
             IDownloadHouse.ShowHouse(Collection.Houses);
+            IDownloadColdWater.ShowAllColdWater(Collection.ColdWaters);
         }
     }
 }
