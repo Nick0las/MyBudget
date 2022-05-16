@@ -10,10 +10,9 @@ namespace MyBudget.Models
     {
         public int IdColdWater { get; set; }
         public int IdHouse { get; set; }
-        public string DateColdWater { get; set; }
-        public int OldMetterColdWater { get; set; }
-        public int NewMetterColdWater { get; set; }
-        public int KubColdWater { get; set; }
+        public string DateColdWater { get; set; }        
+        public decimal LastMetterColdWater { get; set; }
+        public decimal KubColdWater { get; set; }
         public decimal PriceColdWater { get; set; }
         public decimal PayedColdWater { get; set; }
         public decimal DebtColdWater { get; set; }

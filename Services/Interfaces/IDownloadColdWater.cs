@@ -21,9 +21,9 @@ namespace MyBudget.Services.Interfaces
                 ColdWater coldWater = new();
                 coldWater.IdColdWater = Convert.ToInt32(sqliteDataReader[0]);
                 coldWater.IdHouse = Convert.ToInt32(sqliteDataReader[1]);
-                coldWater.DateColdWater = sqliteDataReader[2].ToString();
-                coldWater.OldMetterColdWater = Convert.ToInt32(sqliteDataReader[3]);
-                coldWater.NewMetterColdWater = Convert.ToInt32(sqliteDataReader[4]);
+                coldWater.DateColdWater = sqliteDataReader[2].ToString();                
+                coldWater.LastMetterColdWater = Convert.ToInt32(sqliteDataReader[3]);
+                coldWater.KubColdWater = Convert.ToInt32(sqliteDataReader[4]);
                 coldWater.PriceColdWater = Convert.ToDecimal(sqliteDataReader[5]);
                 coldWater.PayedColdWater = Convert.ToDecimal(sqliteDataReader[6]);
                 coldWater.DebtColdWater = Convert.ToDecimal(sqliteDataReader[7]);

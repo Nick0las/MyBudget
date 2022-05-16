@@ -56,6 +56,7 @@ namespace MyBudget.ViewModels
                 }
             }
         }
+        // Привязка к DatePicker
         private DateTime _dateTransfer = DateTime.Now;
         public DateTime DateTransfer
         {
@@ -73,9 +74,7 @@ namespace MyBudget.ViewModels
         public ICommand AddNewTransferCmd { get; }
         private bool CanAddNewTransferCmdExecute(object p) => true;
         private void OnAddNewTransferCmdExecuted(object p)
-        {
-            //Командаs
-            //MessageBox.Show("Привязка команды");
+        {            
             if (Summa is null or "")
             {
                 MessageBox.Show("Все поля должны быть заполнены");

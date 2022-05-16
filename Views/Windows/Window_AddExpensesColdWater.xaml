@@ -8,7 +8,7 @@
         xmlns:serv="clr-namespace:MyBudget.Services"
         xmlns:cmd="clr-namespace:MyBudget.Commands"
         xmlns:l="clr-namespace:MyBudget"          
-        Title="{Binding Title}" Height="350" Width="750" ResizeMode="NoResize"
+        Title="{Binding Title}" Height="410" Width="750" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <vm:AddExpensesColdWater_ViewModel/>
@@ -22,7 +22,8 @@
             </Button>
             <Button Content="Добавить" Height="30" Width="80" 
                     HorizontalAlignment="Right" Margin="5"
-                    Style="{StaticResource CheckButtonStyle}">
+                    Style="{StaticResource CheckButtonStyle}"
+                    Command="{Binding AddNewColdWaterCmd}">
             </Button>
         </UniformGrid>
         <DockPanel DockPanel.Dock="Left" Width="370" Margin="5">
@@ -42,18 +43,20 @@
                       CanUserAddRows="False"
                       CanUserResizeColumns="False"
                       ItemsSource="{Binding Source={x:Static serv:Collection.ColdWaters}}"
-                      SelectedItem="{Binding Path=SelectedDataGrid}">
+                      SelectedItem="{Binding Path=SelectedColdWater}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Дом" 
                                         Width="45"
                                         Binding="{Binding IdHouse}"/>
                     <DataGridTextColumn Header="Дата"
-                                        Binding="{Binding DateColdWater}"/>
-                    <DataGridTextColumn Header="Пред.показ."
-                                        Binding="{Binding OldMetterColdWater}"/>
-                    <DataGridTextColumn Header="Текущ.показ."
-                                        Binding="{Binding NewMetterColdWater}"/>
+                                        MinWidth="60"
+                                        Width="auto"
+                                        Binding="{Binding DateColdWater}"/>                    
+                    <DataGridTextColumn Header="Последние.показ."
+                                        Width="*"
+                                        Binding="{Binding LastMetterColdWater}"/>
                     <DataGridTextColumn Header="Расход"
+                                         Width="auto"
                                         Binding="{Binding KubColdWater}"/>
                 </DataGrid.Columns>
             </DataGrid>
@@ -68,7 +71,8 @@
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Column="0"
                            Grid.Row="0"
@@ -86,7 +90,7 @@
                          VerticalAlignment="Top"
                          Margin="3,30,3,5"
                          ItemsSource="{Binding Source={x:Static serv:Collection.Houses}}"                         
-                         SelectedItem="{Binding SelectedHouse}">
+                         SelectedItem="{Binding SelectedHouse}" TabIndex="1">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Sity}">
@@ -118,7 +122,8 @@
                 <DatePicker Grid.Column="1"
                          Grid.Row="0"                         
                          VerticalAlignment="Top"
-                         Margin="3,28,3,5"/>
+                         Margin="3,28,3,5"
+                         SelectedDate="{Binding NewDateColdWater}"/>
                 <TextBlock Grid.Column="0"
                            Grid.Row="1"
                            TextWrapping="Wrap"
@@ -133,9 +138,9 @@
                 <TextBox Grid.Column="0"
                          Grid.Row="1"
                          TextWrapping="Wrap"
-                         VerticalAlignment="Top" 
+                         VerticalAlignment="Center" 
                          Margin="3,30,3,5"
-                         Text="{Binding SelectedDataGrid.OldMetterColdWater}"/>
+                         Text="{Binding SelectedColdWater.LastMetterColdWater, StringFormat=\{0:f2\}, UpdateSourceTrigger=PropertyChanged}" TabIndex="2"/>
                 <TextBlock Grid.Column="0"
                            Grid.Row="2"
                            TextWrapping="Wrap"
@@ -152,7 +157,7 @@
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
                          Margin="3,30,3,5"
-                         Text="{Binding NewMetter}"/>
+                         Text="{Binding NewMetter, StringFormat=\{0:f2\}, UpdateSourceTrigger=PropertyChanged}" TabIndex="3"/>
                 <TextBlock Grid.Column="0"
                            Grid.Row="3"
                            TextWrapping="Wrap"
@@ -169,7 +174,25 @@
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
                          Margin="3,30,3,5"
-                         Text="{Binding ExpenKub}"/>
+                         Text="{Binding ExpenKub, StringFormat=\{0:f2\}, UpdateSourceTrigger=PropertyChanged}" TabIndex="4"/>
+                <TextBlock Grid.Column="0"
+                           Grid.Row="5"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="5,10,0,0"
+                           Text="Стоимость 1 куба"/>
+                <TextBox Grid.Column="0"
+                         Grid.Row="5"
+                         TextWrapping="Wrap"
+                         VerticalAlignment="Top" 
+                         Margin="3,30,3,5"
+                         Text="{Binding Price1Kub, StringFormat=\{0:f2\}}" TabIndex="5"/>
+
                 <TextBlock Grid.Column="1"
                            Grid.Row="1"
                            TextWrapping="Wrap"
@@ -180,29 +203,14 @@
                            FontFamily="Arial"
                            FontWeight="Bold"
                            Margin="5,10,0,0"
-                           Text="Стоимость"/>
-                <TextBox Grid.Column="1"
+                           Text="Должно быть начислено:"/>
+                <TextBlock Grid.Column="1"
                          Grid.Row="1"
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
+                         Margin="3,30,3,5"
+                         Text="{Binding Calculation, StringFormat=\{0:f2\}, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Column="1"
-                           Grid.Row="2"
-                           TextWrapping="Wrap"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Top"
-                           FontSize="12"
-                           Foreground="DarkBlue"
-                           FontFamily="Arial"
-                           FontWeight="Bold"
-                           Margin="5,10,0,0"
-                           Text="Оплачено"/>
-                <TextBox Grid.Column="1"
-                         Grid.Row="2"
-                         TextWrapping="Wrap"
-                         VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
 
                 <TextBlock Grid.Column="1"
                            Grid.Row="3"
@@ -214,12 +222,49 @@
                            FontFamily="Arial"
                            FontWeight="Bold"
                            Margin="5,10,0,0"
-                           Text="Долг"/>
+                           Text="Оплачено"/>
                 <TextBox Grid.Column="1"
                          Grid.Row="3"
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
+                         Margin="3,30,3,5"
+                         Text="{Binding PayedColdWater, StringFormat=\{0:f2\}, UpdateSourceTrigger=PropertyChanged}" TabIndex="7"/>
+                
+                <TextBlock Grid.Column="1"
+                           Grid.Row="2"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="5,10,0,0"
+                           Text="Начислено в квитанции:"/>
+                <TextBox Grid.Column="1"
+                         Grid.Row="2"
+                         TextWrapping="Wrap"
+                         VerticalAlignment="Top" 
+                         Margin="3,30,3,5"
+                         Text="{Binding ToBePaid, StringFormat=\{0:f2\}, UpdateSourceTrigger=PropertyChanged}" TabIndex="6"/>
+
+                <TextBlock Grid.Column="1"
+                           Grid.Row="4"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="5,10,0,0"
+                           Text="Долг"/>
+                <TextBox Grid.Column="1"
+                         Grid.Row="4"
+                         TextWrapping="Wrap"
+                         VerticalAlignment="Top" 
+                         Margin="3,30,3,5"
+                         Text="{Binding DebtColdWaterOnForms, StringFormat=\{0:f2\}, UpdateSourceTrigger=PropertyChanged}" TabIndex="8"/>
 
                 <!--<Border Grid.ColumnSpan="2" 
                         Grid.Row="0" 
