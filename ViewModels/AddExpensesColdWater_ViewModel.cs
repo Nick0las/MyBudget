@@ -125,27 +125,40 @@ namespace MyBudget.ViewModels
             ColdWater coldWater = new();
             if(SelectedHouse == null)
             {
-                MessageBox.Show("Забыли указать дом!");
+                MessageBoxResult result = MessageBox.Show("Забыли указать дом!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if(NewDateColdWater == DateTime.Today)
             {
-                MessageBox.Show("Выбрана текущая дата!");
-                return;
+                MessageBoxResult result = MessageBox.Show("Выбрана текущая дата! Продолжить?", "Внимание!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                switch(result)
+                {
+                    case MessageBoxResult.Cancel:
+                        MessageBox.Show("Пользователь отказался!");
+                        break;
+                    case MessageBoxResult.OK:                       
+                        Add2ColdWater(coldWater);
+                        AddNewMetterColdWater2DB(coldWater);
+                        Collection.ColdWaters.Clear();
+                        IDownloadColdWater.ShowAllColdWater(Collection.ColdWaters);
+                        MessageBox.Show("Данные добавлены!");
+                        break;
+                }
             }
-            coldWater.IdHouse = SelectedHouse.IdHouse;
-            coldWater.DateColdWater = NewDateColdWater.ToLongDateString();
-            coldWater.KubColdWater = ExpenKub;
-            coldWater.PriceColdWater = Price1Kub;
-            coldWater.PayedColdWater = PayedColdWater;
-            coldWater.DebtColdWater = DebtColdWaterOnForms;
-            AddNewMetterColdWater2DB(coldWater);
-            Collection.ColdWaters.Clear();
-            IDownloadColdWater.ShowAllColdWater(Collection.ColdWaters);
+            else
+            {
+                Add2ColdWater(coldWater);
+                AddNewMetterColdWater2DB(coldWater);
+                Collection.ColdWaters.Clear();
+                IDownloadColdWater.ShowAllColdWater(Collection.ColdWaters);
+                MessageBox.Show("Данные добавлены!");
+            }
+            
         }
 
         #endregion
-
+        #region Конструктор
+        // Конструктор
         public AddExpensesColdWater_ViewModel()
         {
             AddNewColdWaterCmd = new LamdaCommand(OnAddNewColdWaterCmdExecuted, CanAddNewColdWaterCmdExecute);
@@ -154,6 +167,9 @@ namespace MyBudget.ViewModels
             IDownloadHouse.ShowHouse(Collection.Houses);
             IDownloadColdWater.ShowAllColdWater(Collection.ColdWaters);
         }
+        #endregion
+
+        #region Методы
         protected override void SetProperty<T>(ref T fieldProperty, T newValue, [CallerMemberName] string propertyName = "")
         {
             base.SetProperty(ref fieldProperty, newValue, propertyName);
@@ -163,16 +179,17 @@ namespace MyBudget.ViewModels
             }
         }
 
+        // Метод загружает данные в БД
         private void AddNewMetterColdWater2DB(ColdWater water)
         {
             string idHouse = water.IdHouse.ToString() + ", ";
-            string dateWater = "'" + water.DateColdWater + "', ";
-            string metterWater = "'" + water.LastMetterColdWater.ToString() + "', ";
-            string kub = "'" + water.KubColdWater.ToString() + "', ";
-            string price = "'" + water.PriceColdWater.ToString() + "', ";
-            string payed = "'" + water.PayedColdWater.ToString() + "', ";
-            string debt = "'" + water.DebtColdWater.ToString() + "')";
-            string sqlQueryNewColdWater = "INSERT INTO cold_water VALUES (NULL, " + idHouse + dateWater + metterWater + kub + price + payed + debt;
+            string dateWater = @"'" + water.DateColdWater + "', ";
+            string metterWater = @"'" + water.LastMetterColdWater.ToString() + "', ";
+            string kub = @"'" + water.KubColdWater.ToString() + "', ";
+            string price = @"'" + water.PriceColdWater.ToString() + "', ";
+            string payed = @"'" + water.PayedColdWater.ToString() + "', ";
+            string debt = @"'" + water.DebtColdWater.ToString() + "')";
+            string sqlQueryNewColdWater = @"INSERT INTO cold_water VALUES (NULL, " + idHouse + dateWater + metterWater + kub + price + payed + debt;
 
             ConnectionDB connection = new ConnectionDB();
             connection.OpenConnection();
@@ -180,6 +197,18 @@ namespace MyBudget.ViewModels
             cmdInsertNewColdWater.ExecuteNonQuery();
             connection.CloseConnection();
         }
+
+        private void Add2ColdWater(ColdWater coldWater)
+        {
+            coldWater.IdHouse = SelectedHouse.IdHouse;
+            coldWater.DateColdWater = NewDateColdWater.ToLongDateString();
+            coldWater.LastMetterColdWater = NewMetter;
+            coldWater.KubColdWater = ExpenKub;
+            coldWater.PriceColdWater = Price1Kub;
+            coldWater.PayedColdWater = PayedColdWater;
+            coldWater.DebtColdWater = DebtColdWaterOnForms;
+        }
+        #endregion
     }
 }
 
