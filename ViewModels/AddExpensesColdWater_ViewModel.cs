@@ -1,6 +1,7 @@
 ﻿/*********************************************************************/
-/*                      VM к окну AddNewColdWater                    */
-/*     необходимо добавить реализацию вычисления в TextBox runTime   */
+/*                      VM к окну AddNewColdWater                    
+/*     необходимо добавить реализацию вычисления в TextBox runTime   
+/*                  реализовать вычисления, если БД пустая
 /*********************************************************************/
 
 using Microsoft.Data.Sqlite;
@@ -34,13 +35,6 @@ namespace MyBudget.ViewModels
         #region Свойства, привязанные к окну
         //Свойство для захвата даты
         public DateTime NewDateColdWater { get; set; } = DateTime.Now;
-
-        //private DateTime _newDateColdWater = DateTime.Now;
-        //public DateTime NewDateColdWater
-        //{
-        //    get { return _newDateColdWater; }
-        //    set => Set(ref _newDateColdWater, value);
-        //}
 
 
         // Свойство для перехвата значения из ComboBox        

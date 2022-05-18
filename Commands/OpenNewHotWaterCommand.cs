@@ -5,14 +5,15 @@ using System.Windows;
 
 namespace MyBudget.Commands
 {
-    class OpenNewColdWater : Command
+    class OpenNewHotWaterCommand : Command
     {
-        private Window_AddExpensesColdWater _Window;
+        private Window_AddExpensesHotWater _Window;
+
         public override bool CanExecute(object parameter) => _Window == null;
 
         public override void Execute(object parameter)
         {
-            Window_AddExpensesColdWater window = new Window_AddExpensesColdWater
+            Window_AddExpensesHotWater window = new Window_AddExpensesHotWater
             {
                 Owner = Application.Current.MainWindow
             };

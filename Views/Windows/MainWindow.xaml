@@ -119,7 +119,7 @@
                                   FontFamily="Sylfaen" 
                                   FontSize="14">
                             <MenuItem.Command>
-                                <cmd:OpenNewColdWater/>
+                                <cmd:OpenNewColdWaterCommand/>
                             </MenuItem.Command>
                         </MenuItem>
                         <MenuItem Header="Горячая вода" 
@@ -127,9 +127,9 @@
                                   FontStyle="Normal" 
                                   FontFamily="Sylfaen" 
                                   FontSize="14">
-                            <!--<MenuItem.Command>
-                                <cmd:AddHotWaterCommand/>
-                            </MenuItem.Command>-->
+                            <MenuItem.Command>
+                                <cmd:OpenNewHotWaterCommand/>
+                            </MenuItem.Command>
                         </MenuItem>
                         <MenuItem Header="Водоотведение" 
                                   FontWeight="Normal"  

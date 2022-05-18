@@ -38,5 +38,8 @@ namespace MyBudget.Services
 
         // Коллекция для хранения данных о холодной воде
         public static ObservableCollection<ColdWater> ColdWaters { get; set; } = new ObservableCollection<ColdWater>();
+
+        // Коллекция для хранения данных о горячей воде
+        public static ObservableCollection<HotWater> HotWaters { get; set; } = new ObservableCollection<HotWater>();
     }
 }

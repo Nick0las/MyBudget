@@ -1,5 +1,5 @@
 ﻿/**************************************************/
-/*       Модель таблицы cold_water из таблицы БД        */
+/* Модель таблицы cold_water из таблицы БД        */
 /**************************************************/
 
 using System;
@@ -17,9 +17,10 @@ namespace MyBudget.Models
         public decimal PayedColdWater { get; set; }
         public decimal DebtColdWater { get; set; }
 
-        public static explicit operator int(ColdWater v)
-        {
-            throw new NotImplementedException();
-        }
+        // ХЗ что это
+        //public static explicit operator int(ColdWater v)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

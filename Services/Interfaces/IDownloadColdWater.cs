@@ -11,7 +11,7 @@ namespace MyBudget.Services.Interfaces
         protected static void ShowAllColdWater(ObservableCollection<ColdWater> coldWaters)
         {
 
-            string sqlQuery = "SELECT * FROM cold_water ORDER BY date_cold_water ASC";
+            string sqlQuery = "SELECT * FROM cold_water ORDER BY date_cold_water DESC";
             ConnectionDB connection = new();
             connection.OpenConnection();
             SqliteCommand cmdSelectAllColdWater = new(sqlQuery, connection.GetConnection());
