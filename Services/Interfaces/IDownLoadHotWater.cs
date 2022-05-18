@@ -10,7 +10,7 @@ namespace MyBudget.Services.Interfaces
     {
         protected static void ShowAllHotWater(ObservableCollection<HotWater> hotWaters)
         {
-            string sqlQuery = "SELECT * FROM hot_water ORDER BY date_hot_water ASC";
+            string sqlQuery = "SELECT * FROM hot_water ORDER BY date_hot_water DESC";
             ConnectionDB connection = new();
             connection.OpenConnection();
             SqliteCommand cmdSelectAllColdWater = new(sqlQuery, connection.GetConnection());

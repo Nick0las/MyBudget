@@ -18,7 +18,6 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
-    //ViewModel_Base,OnPropertyChangedClass
     internal class AddExpensesColdWater_ViewModel : ViewModel_Base, IDownloadHouse, IDownloadColdWater
     {
         #region Заголовок окна
