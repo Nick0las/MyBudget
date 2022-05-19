@@ -17,7 +17,7 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
-    internal class AddNewWaterRemove_ViewModel : ViewModel_Base, IDownloadHouse, IDownloadWaterRemove
+    internal class AddNewWaterRemove_ViewModel : ViewModel_Base, IDownloadHouse, IDownloadWaterRemove, IDownload_AllBalance
     {
         #region Заголовок окна
         private string _Title = "Добавлние нового расхода 'Водоотведение'.";
@@ -106,6 +106,9 @@ namespace MyBudget.ViewModels
                         AddNewWaterRemove2DB(waterRemove);                        
                         Collection.WaterRemoves.Clear();
                         IDownloadWaterRemove.ShowAllWaterRemove(Collection.WaterRemoves);
+                        IDownload_AllBalance.UpdateCashAfterInsertCosts(waterRemove.PayedWaterRemove, Collection.AllBalance);
+                        Collection.AllBalance.Clear();
+                        IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
                         MessageBox.Show("Данные добавлены!");
                         break;
                 }
@@ -116,12 +119,13 @@ namespace MyBudget.ViewModels
                 AddNewWaterRemove2DB(waterRemove);
                 Collection.WaterRemoves.Clear();
                 IDownloadWaterRemove.ShowAllWaterRemove(Collection.WaterRemoves);
+                IDownload_AllBalance.UpdateCashAfterInsertCosts(waterRemove.PayedWaterRemove, Collection.AllBalance);
+                Collection.AllBalance.Clear();
+                IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
                 MessageBox.Show("Данные добавлены!");
             }
         }
         #endregion
-
-
 
 
         #region Конструктор

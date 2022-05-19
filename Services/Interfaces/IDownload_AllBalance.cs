@@ -26,6 +26,22 @@ namespace MyBudget.Services
             sqliteDataReader.Close();
             connection.CloseConnection();
         }
+        protected static void UpdateCashAfterInsertCosts(decimal costs, ObservableCollection<Cash> cashes)
+        {
+            decimal newBalance;
+            Cash kassa = new();
+            for (int i = 0; i< cashes.Count; i++)
+            {
+                kassa = cashes[i];
+            }
+            newBalance = kassa.CashBalance - costs;
+            string sqlQeuryUpdate = @"UPDATE kassa SET all_balance = " + "'" + newBalance.ToString() + "'" + " WHERE id_kassa = 1";
+            ConnectionDB connection = new ConnectionDB();
+            connection.OpenConnection();
+            SqliteCommand cmdUpdateAllBalance = new(sqlQeuryUpdate, connection.GetConnection());
+            cmdUpdateAllBalance.ExecuteNonQuery();
+            connection.CloseConnection();
+        }
     }
     
 }
