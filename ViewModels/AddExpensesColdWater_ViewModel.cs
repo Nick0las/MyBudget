@@ -18,7 +18,7 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
-    internal class AddExpensesColdWater_ViewModel : ViewModel_Base, IDownloadHouse, IDownloadColdWater
+    internal class AddExpensesColdWater_ViewModel : ViewModel_Base, IDownloadHouse, IDownloadColdWater, IDownload_AllBalance
     {
         #region Заголовок окна
         private string _Title = "Добавлние нового расхода холодной воды.";
@@ -134,6 +134,9 @@ namespace MyBudget.ViewModels
                         AddNewMetterColdWater2DB(coldWater);
                         Collection.ColdWaters.Clear();
                         IDownloadColdWater.ShowAllColdWater(Collection.ColdWaters);
+                        IDownload_AllBalance.UpdateCashAfterInsertCosts(coldWater.PayedColdWater, Collection.AllBalance);
+                        Collection.AllBalance.Clear();
+                        IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
                         MessageBox.Show("Данные добавлены!");
                         break;
                 }
@@ -144,12 +147,16 @@ namespace MyBudget.ViewModels
                 AddNewMetterColdWater2DB(coldWater);
                 Collection.ColdWaters.Clear();
                 IDownloadColdWater.ShowAllColdWater(Collection.ColdWaters);
+                IDownload_AllBalance.UpdateCashAfterInsertCosts(coldWater.PayedColdWater, Collection.AllBalance);
+                Collection.AllBalance.Clear();
+                IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
                 MessageBox.Show("Данные добавлены!");
             }
             
         }
 
         #endregion
+
         #region Конструктор
         // Конструктор
         public AddExpensesColdWater_ViewModel()

@@ -18,7 +18,7 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
-    class AddExpensesHotWater_ViewModel : ViewModel_Base, IDownLoadHotWater, IDownloadHouse
+    class AddExpensesHotWater_ViewModel : ViewModel_Base, IDownLoadHotWater, IDownloadHouse, IDownload_AllBalance
     {
         #region Заголовок окна
         private string _Title = "Добавлние нового расхода горячей воды.";
@@ -137,6 +137,9 @@ namespace MyBudget.ViewModels
                         AddNewMetterHotWater2DB(hotWater);
                         Collection.HotWaters.Clear();
                         IDownLoadHotWater.ShowAllHotWater(Collection.HotWaters);
+                        IDownload_AllBalance.UpdateCashAfterInsertCosts(hotWater.PayedHotWater, Collection.AllBalance);
+                        Collection.AllBalance.Clear();
+                        IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
                         MessageBox.Show("Данные добавлены!");
                         break;
                 }
@@ -147,6 +150,9 @@ namespace MyBudget.ViewModels
                 AddNewMetterHotWater2DB(hotWater);
                 Collection.HotWaters.Clear();
                 IDownLoadHotWater.ShowAllHotWater(Collection.HotWaters);
+                IDownload_AllBalance.UpdateCashAfterInsertCosts(hotWater.PayedHotWater, Collection.AllBalance);
+                Collection.AllBalance.Clear();
+                IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
                 MessageBox.Show("Данные добавлены!");
             }
         }
