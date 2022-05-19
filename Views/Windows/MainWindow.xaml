@@ -140,6 +140,15 @@
                                 <cmd:OpenWaterRemoveCommand/>
                             </MenuItem.Command>
                         </MenuItem>
+                        <MenuItem Header="Электроэнергия" 
+                                  FontWeight="Normal"  
+                                  FontStyle="Normal" 
+                                  FontFamily="Sylfaen"
+                                  FontSize="14">
+                            <!--<MenuItem.Command>
+                                <cmd:OpenWaterRemoveCommand/>
+                            </MenuItem.Command>-->
+                        </MenuItem>
                         <Separator/>
                         <MenuItem Header="Экология" 
                                   FontWeight="Normal"  
