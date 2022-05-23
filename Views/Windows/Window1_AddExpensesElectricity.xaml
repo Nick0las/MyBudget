@@ -8,7 +8,7 @@
         xmlns:serv="clr-namespace:MyBudget.Services"
         xmlns:cmd="clr-namespace:MyBudget.Commands"
         xmlns:l="clr-namespace:MyBudget"        
-        Title="{Binding Title}" Height="410" Width="750" ResizeMode="NoResize"
+        Title="{Binding Title}" Height="470" Width="750" ResizeMode="NoResize"
          WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <vm:AddExpensesElectricity_ViewModel/>
@@ -67,6 +67,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
@@ -175,7 +176,7 @@
                          Text="{Binding ExpenWt, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBlock Grid.Column="0"
-                           Grid.Row="5"
+                           Grid.Row="4"
                            TextWrapping="Wrap"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
@@ -186,11 +187,43 @@
                            Margin="5,10,0,0"
                            Text="Стоимость 1 Вт"/>
                 <TextBox Grid.Column="0"
-                         Grid.Row="5"
+                         Grid.Row="4"
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
                          Margin="3,30,3,5"
                          Text="{Binding Price1Wt}"/>
+                <TextBlock Grid.Column="0"
+                           Grid.Row="6"
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Right"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="3,0,10,-10"
+                           Text="Оплата с карты:"/>
+                <ComboBox Grid.Column="1"
+                         Grid.Row="6"                         
+                         VerticalAlignment="Top"
+                         Margin="3,10,3,-20"
+                         ItemsSource="{Binding Source={x:Static serv:Collection.CardHolders}}"                         
+                         SelectedItem="{Binding Card}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding CardNumber}">
+                                <TextBlock.ToolTip>
+                                    <ToolTip>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding NameUser}"/>
+                                            <TextBlock Text="{Binding SurnameUser}"/>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </TextBlock.ToolTip>
+                                </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
                 <TextBlock Grid.Column="1"
                            Grid.Row="1"

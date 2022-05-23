@@ -18,7 +18,7 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
-    class AddExpensesElectricity_ViewModel : ViewModel_Base, IDownloadHouse, IDownload_AllBalance, IDownloadElectricity
+    class AddExpensesElectricity_ViewModel : ViewModel_Base, IDownloadHouse, IDownload_AllBalance, IDownloadElectricity, IDownloadUserCard
     {
         #region Заголовок окна
         private string _Title = "Добавлние нового расхода электроэнергии";
@@ -108,6 +108,8 @@ namespace MyBudget.ViewModels
             get { return _debtElectricity; }
             set => Set(ref _debtElectricity, ToBePaid - PayedElectricity);
         }
+        // Выбор карты для списания оплаченных средств
+        public CardHolder Card { get; set; }
         #endregion
 
         #region Команда добавления нового расхода "Электроэнергия" в БД
@@ -131,15 +133,30 @@ namespace MyBudget.ViewModels
                         break;
                     case MessageBoxResult.OK:
                         AddNewElecticity2DB();
+                        Collection.Electricities.Clear();
+                        IDownloadElectricity.ShowElectricity(Collection.Electricities);
+                        IDownload_AllBalance.UpdateCashAfterInsertCosts(PayedElectricity, Collection.AllBalance);
+                        IDownloadUserCard.UpdateBalanceUserCard(Card, PayedElectricity);
+                        Collection.Cards.Clear();
+                        IDownloadUserCard.LoadAllCardsMainWindow(Collection.Cards);
+                        Collection.AllBalance.Clear();
+                        IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
                         break;
                 }
             }
-            AddNewElecticity2DB();
-            Collection.Electricities.Clear();
-            IDownloadElectricity.ShowElectricity(Collection.Electricities);
-            IDownload_AllBalance.UpdateCashAfterInsertCosts(PayedElectricity, Collection.AllBalance);
-            Collection.AllBalance.Clear();
-            IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
+            else
+            {
+                AddNewElecticity2DB();
+                Collection.Electricities.Clear();
+                IDownloadElectricity.ShowElectricity(Collection.Electricities);
+                IDownload_AllBalance.UpdateCashAfterInsertCosts(PayedElectricity, Collection.AllBalance);
+                IDownloadUserCard.UpdateBalanceUserCard(Card, PayedElectricity);
+                Collection.Cards.Clear();
+                IDownloadUserCard.LoadAllCardsMainWindow(Collection.Cards);
+                Collection.AllBalance.Clear();
+                IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
+            }
+           
 
         }
 
@@ -152,6 +169,8 @@ namespace MyBudget.ViewModels
             AddNewElecricityCmd = new LamdaCommand(OnAddNewElecricityCmdExecuted, CanAddNewElecricityCmdExecute);
             Collection.Houses.Clear();
             Collection.Electricities.Clear();
+            Collection.CardHolders.Clear();
+            IDownloadUserCard.ShowCardUser(Collection.CardHolders);
             IDownloadHouse.ShowHouse(Collection.Houses);
             IDownloadElectricity.ShowElectricity(Collection.Electricities);
         }

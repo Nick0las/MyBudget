@@ -18,7 +18,7 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
-    internal class AddExpensesColdWater_ViewModel : ViewModel_Base, IDownloadHouse, IDownloadColdWater, IDownload_AllBalance
+    internal class AddExpensesColdWater_ViewModel : ViewModel_Base, IDownloadHouse, IDownloadColdWater, IDownload_AllBalance, IDownloadUserCard
     {
         #region Заголовок окна
         private string _Title = "Добавлние нового расхода холодной воды.";
@@ -164,6 +164,8 @@ namespace MyBudget.ViewModels
             AddNewColdWaterCmd = new LamdaCommand(OnAddNewColdWaterCmdExecuted, CanAddNewColdWaterCmdExecute);
             Collection.ColdWaters.Clear();
             Collection.Houses.Clear();
+            //Collection.CardHolders.Clear();
+            //IDownloadUserCard.ShowCardUser(Collection.CardHolders);
             IDownloadHouse.ShowHouse(Collection.Houses);
             IDownloadColdWater.ShowAllColdWater(Collection.ColdWaters);
         }

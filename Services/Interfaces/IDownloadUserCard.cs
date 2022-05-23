@@ -59,5 +59,15 @@ namespace MyBudget.Services.Interfaces
             sqliteDataReader.Close();
             connection.CloseConnection();
         }
+        protected static void UpdateBalanceUserCard(CardHolder card, decimal payed)
+        {
+            int idCard = card.IdCard;
+            string sqlQeuryUpdate = @"UPDATE user_cash SET balance = balance - " + "'" + payed.ToString() + "'" + " WHERE id_card = " + idCard;
+            ConnectionDB connection = new ConnectionDB();
+            connection.OpenConnection();
+            SqliteCommand cmdUpdateUserCard = new(sqlQeuryUpdate, connection.GetConnection());
+            cmdUpdateUserCard.ExecuteNonQuery();
+            connection.CloseConnection();
+        }
     }
 }
