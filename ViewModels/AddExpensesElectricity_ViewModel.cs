@@ -135,11 +135,15 @@ namespace MyBudget.ViewModels
                 }
             }
             AddNewElecticity2DB();
+            Collection.Electricities.Clear();
+            IDownloadElectricity.ShowElectricity(Collection.Electricities);
+            IDownload_AllBalance.UpdateCashAfterInsertCosts(PayedElectricity, Collection.AllBalance);
+            Collection.AllBalance.Clear();
+            IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
+
         }
 
         #endregion
-
-
 
 
         #region Конструктор
@@ -172,12 +176,14 @@ namespace MyBudget.ViewModels
             string wtElectricity = "'" + ExpenWt.ToString() + "', ";
             string priceElectricity = "'" + Price1Wt.ToString() + "', ";
             string payedElectricity = "'" + PayedElectricity.ToString() + "', ";
-            string debtElectriciy = "'" + DebtElectricityOnForms.ToString() + "', ";
+            string debtElectriciy = "'" + DebtElectricityOnForms.ToString() + "'";
+            string sqlQueryInsert2Electricity = @"INSERT INTO electricity VALUES (NULL, " + idHouse + dateElectricity + lastMettersElectricity + wtElectricity + priceElectricity + payedElectricity + debtElectriciy + ");";
 
-            string sqlQuery = @"INSERT INTO electricity VALUES (NULL, " + idHouse + dateElectricity + lastMettersElectricity + wtElectricity + priceElectricity + payedElectricity + debtElectriciy + ");";
-                        
-
-
+            ConnectionDB connection = new ConnectionDB();
+            connection.OpenConnection();
+            SqliteCommand cmdInsert2Electricity = new(sqlQueryInsert2Electricity, connection.GetConnection());
+            cmdInsert2Electricity.ExecuteNonQuery();
+            connection.CloseConnection();
         }
         #endregion
     }
