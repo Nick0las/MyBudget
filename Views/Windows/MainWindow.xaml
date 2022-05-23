@@ -155,9 +155,9 @@
                                   FontStyle="Normal" 
                                   FontFamily="Sylfaen" 
                                   FontSize="14">
-                            <!--<MenuItem.Command>
-                                <cmd:AddEcologyCommand/>
-                            </MenuItem.Command>-->
+                            <MenuItem.Command>
+                                <cmd:OpenAddNewEcologyCommand/>
+                            </MenuItem.Command>
                         </MenuItem>
                     </MenuItem>
                     <MenuItem Header="Связь"  

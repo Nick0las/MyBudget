@@ -36,7 +36,7 @@ namespace MyBudget.ViewModels
         public DateTime NewDateColdWater { get; set; } = DateTime.Now;
 
 
-        // Свойство для перехвата значения из ComboBox        
+        // Свойство для перехвата значения из ComboBox Дом       
         public House SelectedHouse { get; set; }
         
         // Привязка к DataGrid
