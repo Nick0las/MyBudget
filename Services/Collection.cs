@@ -47,5 +47,8 @@ namespace MyBudget.Services
 
         // Коллекция для хранения данных о Электроэнергии
         public static ObservableCollection<Electricity> Electricities { get; set; } = new ObservableCollection<Electricity>();
+
+        // Коллекция для хранения данных о Экологии (вывоз мусора)
+        public static ObservableCollection<Ecology> Ecologies { get; set; } = new ObservableCollection<Ecology>();
     }
 }
