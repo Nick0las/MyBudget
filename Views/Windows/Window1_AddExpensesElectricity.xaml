@@ -8,8 +8,11 @@
         xmlns:serv="clr-namespace:MyBudget.Services"
         xmlns:cmd="clr-namespace:MyBudget.Commands"
         xmlns:l="clr-namespace:MyBudget"        
-        Title="Новый расход электроэнергии" Height="350" Width="750" ResizeMode="NoResize"
+        Title="{Binding Title}" Height="410" Width="750" ResizeMode="NoResize"
          WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:AddExpensesElectricity_ViewModel/>
+    </Window.DataContext>
     <DockPanel>
         <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
             <Button Content="Отмена" Height="30" Width="80"
@@ -19,7 +22,8 @@
             </Button>
             <Button Content="Добавить" Height="30" Width="80" 
                     HorizontalAlignment="Right" Margin="5"
-                    Style="{StaticResource CheckButtonStyle}">
+                    Style="{StaticResource CheckButtonStyle}"
+                    Command="{Binding AddNewElecricityCmd}">
             </Button>
         </UniformGrid>
         <DockPanel DockPanel.Dock="Left" Width="370" Margin="5">
@@ -36,13 +40,23 @@
                       AutoGenerateColumns="False"
                       CanUserReorderColumns="False" 
                       CanUserAddRows="False"
-                      CanUserResizeColumns="False">
+                      CanUserResizeColumns="False"
+                      Background="White"
+                      ItemsSource="{Binding Source={x:Static serv:Collection.Electricities}}"
+                      SelectedItem="{Binding Path=SelectedElectricity}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Дом" Width="45"/>
-                    <DataGridTextColumn Header="Дата"/>
-                    <DataGridTextColumn Header="Пред.показ."/>
-                    <DataGridTextColumn Header="Текущ.показ."/>
-                    <DataGridTextColumn Header="Расход"/>
+                    <DataGridTextColumn Header="Дом" 
+                                        Width="45"
+                                        Binding="{Binding IdHouse}"/>
+                    <DataGridTextColumn Header="Дата"
+                                        Width="80"
+                                        Binding="{Binding DateElectricity}"/>
+                    <DataGridTextColumn Header="Последние показания"
+                                        Width="150"
+                                        Binding="{Binding LastMetterElectricity}"/>
+                    <DataGridTextColumn Header="Расход"
+                                        Width="*"
+                                        Binding="{Binding SumWtElectricity}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
@@ -56,7 +70,8 @@
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Column="0"
                            Grid.Row="0"
@@ -72,7 +87,26 @@
                 <ComboBox Grid.Column="0"
                          Grid.Row="0"                         
                          VerticalAlignment="Top"
-                         Margin="3,30,3,5"/>
+                         Margin="3,30,3,5"
+                          ItemsSource="{Binding Source={x:Static serv:Collection.Houses}}"                         
+                         SelectedItem="{Binding SelectedHouse}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Sity}">
+                                <TextBlock.ToolTip>
+                                    <ToolTip>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding IdHouse}"/>
+                                            <TextBlock Text="{Binding Street}"/>
+                                            <TextBlock Text="{Binding NumberHouse}"/>
+                                            <TextBlock Text="{Binding NumberAppartament}"/>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </TextBlock.ToolTip>
+                                </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
                 <TextBlock Grid.Column="1"
                            Grid.Row="0"
                            TextWrapping="Wrap"
@@ -87,7 +121,8 @@
                 <DatePicker Grid.Column="1"
                          Grid.Row="0"                         
                          VerticalAlignment="Top"
-                         Margin="3,28,3,5"/>
+                         Margin="3,28,3,5"
+                         SelectedDate="{Binding NewDateElectricity}"/>
                 <TextBlock Grid.Column="0"
                            Grid.Row="1"
                            TextWrapping="Wrap"
@@ -103,7 +138,8 @@
                          Grid.Row="1"
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
+                         Margin="3,30,3,5"
+                         Text="{Binding SelectedElectricity.LastMetterElectricity}"/>
                 <TextBlock Grid.Column="0"
                            Grid.Row="2"
                            TextWrapping="Wrap"
@@ -114,12 +150,13 @@
                            FontFamily="Arial"
                            FontWeight="Bold"
                            Margin="5,10,0,0"
-                           Text="Текущие показания:"/>
+                           Text="Текущие показания счетчика:"/>
                 <TextBox Grid.Column="0"
                          Grid.Row="2"
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
+                         Margin="3,37,3,5"
+                         Text="{Binding NewMetterElectricity}"/>
                 <TextBlock Grid.Column="0"
                            Grid.Row="3"
                            TextWrapping="Wrap"
@@ -130,12 +167,31 @@
                            FontFamily="Arial"
                            FontWeight="Bold"
                            Margin="5,10,0,0"
-                           Text="Расход (л/куб):"/>
+                           Text="Расход (Вт):"/>
                 <TextBox Grid.Column="0"
                          Grid.Row="3"
+                         TextWrapping="Wrap" 
+                         Margin="3,30,3,12"
+                         Text="{Binding ExpenWt, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="5"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="5,10,0,0"
+                           Text="Стоимость 1 Вт"/>
+                <TextBox Grid.Column="0"
+                         Grid.Row="5"
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
+                         Margin="3,30,3,5"
+                         Text="{Binding Price1Wt}"/>
+
                 <TextBlock Grid.Column="1"
                            Grid.Row="1"
                            TextWrapping="Wrap"
@@ -146,12 +202,13 @@
                            FontFamily="Arial"
                            FontWeight="Bold"
                            Margin="5,10,0,0"
-                           Text="Стоимость"/>
-                <TextBox Grid.Column="1"
+                           Text="Должно быть начислено:"/>
+                <TextBlock Grid.Column="1"
                          Grid.Row="1"
-                         TextWrapping="Wrap"
+                         TextWrapping="Wrap"                         
                          VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
+                         Margin="3,30,3,5"
+                         Text="{Binding CalculationWt, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBlock Grid.Column="1"
                            Grid.Row="2"
@@ -163,12 +220,13 @@
                            FontFamily="Arial"
                            FontWeight="Bold"
                            Margin="5,10,0,0"
-                           Text="Оплачено"/>
+                           Text="Начислено в квитанции:"/>
                 <TextBox Grid.Column="1"
                          Grid.Row="2"
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
+                         Margin="3,37,3,5"
+                         Text="{Binding ToBePaid}"/>
 
                 <TextBlock Grid.Column="1"
                            Grid.Row="3"
@@ -180,14 +238,32 @@
                            FontFamily="Arial"
                            FontWeight="Bold"
                            Margin="5,10,0,0"
-                           Text="Долг"/>
+                           Text="Оплачено:"/>
                 <TextBox Grid.Column="1"
                          Grid.Row="3"
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
-                         Margin="3,30,3,5"/>
+                         Margin="3,30,3,5"
+                         Text="{Binding PayedElectricity}"/>
 
-                <Border Grid.ColumnSpan="2" 
+                <TextBlock Grid.Column="1"
+                           Grid.Row="4"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="12"
+                           Foreground="DarkBlue"
+                           FontFamily="Arial"
+                           FontWeight="Bold"
+                           Margin="5,10,0,0"
+                           Text="Долг:"/>
+                <TextBox Grid.Column="1"
+                         Grid.Row="4"
+                         TextWrapping="Wrap"
+                         VerticalAlignment="Top" 
+                         Margin="3,30,3,5"
+                         Text="{Binding DebtElectricityOnForms, UpdateSourceTrigger=PropertyChanged}"/>
+                <!--<Border Grid.ColumnSpan="2" 
                         Grid.Row="0" 
                         BorderBrush="LightGray"
                         BorderThickness="1"/>
@@ -195,7 +271,7 @@
                         Grid.Row="1"
                         Grid.RowSpan="3"
                         BorderBrush="LightGray"
-                        BorderThickness="1"/>
+                        BorderThickness="1"/>-->
             </Grid>
         </DockPanel>
     </DockPanel>

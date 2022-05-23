@@ -54,7 +54,7 @@ namespace MyBudget.ViewModels
             set => Set(ref newMetter, value);
         }
 
-        // Привязка к TextBox "Разница нового и старого значения счетчика"
+        // Привязка к TextBox "Разница нового и старого значения счетчика" (количество кубов)
         private decimal _expenKub;
         public decimal ExpenKub
         {

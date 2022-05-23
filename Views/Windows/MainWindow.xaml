@@ -145,9 +145,9 @@
                                   FontStyle="Normal" 
                                   FontFamily="Sylfaen"
                                   FontSize="14">
-                            <!--<MenuItem.Command>
-                                <cmd:OpenWaterRemoveCommand/>
-                            </MenuItem.Command>-->
+                            <MenuItem.Command>
+                                <cmd:OpenNewElectrocityCommand/>
+                            </MenuItem.Command>
                         </MenuItem>
                         <Separator/>
                         <MenuItem Header="Экология" 

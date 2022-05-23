@@ -44,5 +44,8 @@ namespace MyBudget.Services
 
         // Коллекция для хранения данных о водоотведении
         public static ObservableCollection<WaterRemove> WaterRemoves { get; set; } = new ObservableCollection<WaterRemove>();
+
+        // Коллекция для хранения данных о Электроэнергии
+        public static ObservableCollection<Electricity> Electricities { get; set; } = new ObservableCollection<Electricity>();
     }
 }
