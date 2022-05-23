@@ -201,7 +201,7 @@
                            Foreground="DarkBlue"
                            FontFamily="Arial"
                            FontWeight="Bold"
-                           Margin="3,0,10,-10"
+                           Margin="3,10,10,0"
                            Text="Оплата с карты:"/>
                 <ComboBox Grid.Column="1"
                          Grid.Row="6"                         

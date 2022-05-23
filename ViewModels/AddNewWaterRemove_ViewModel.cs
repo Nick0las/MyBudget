@@ -17,7 +17,7 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
-    internal class AddNewWaterRemove_ViewModel : ViewModel_Base, IDownloadHouse, IDownloadWaterRemove, IDownload_AllBalance
+    internal class AddNewWaterRemove_ViewModel : ViewModel_Base, IDownloadHouse, IDownloadWaterRemove, IDownload_AllBalance, IDownloadUserCard
     {
         #region Заголовок окна
         private string _Title = "Добавлние нового расхода 'Водоотведение'.";
@@ -79,6 +79,8 @@ namespace MyBudget.ViewModels
             get { return _debtWaterRemove; }
             set => Set(ref _debtWaterRemove, ToBePaidWaterRemove - PaydWaterRemove);
         }
+        // Выбор карты для списания средств оплаченных трат
+        public CardHolder Card { get; set; }
 
         #endregion
 
@@ -109,6 +111,9 @@ namespace MyBudget.ViewModels
                         IDownload_AllBalance.UpdateCashAfterInsertCosts(waterRemove.PayedWaterRemove, Collection.AllBalance);
                         Collection.AllBalance.Clear();
                         IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
+                        IDownloadUserCard.UpdateBalanceUserCard(Card, PaydWaterRemove);
+                        Collection.Cards.Clear();
+                        IDownloadUserCard.LoadAllCardsMainWindow(Collection.Cards);
                         MessageBox.Show("Данные добавлены!");
                         break;
                 }
@@ -122,6 +127,9 @@ namespace MyBudget.ViewModels
                 IDownload_AllBalance.UpdateCashAfterInsertCosts(waterRemove.PayedWaterRemove, Collection.AllBalance);
                 Collection.AllBalance.Clear();
                 IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
+                IDownloadUserCard.UpdateBalanceUserCard(Card, PaydWaterRemove);
+                Collection.Cards.Clear();
+                IDownloadUserCard.LoadAllCardsMainWindow(Collection.Cards);
                 MessageBox.Show("Данные добавлены!");
             }
         }
@@ -134,6 +142,8 @@ namespace MyBudget.ViewModels
             AddNewWaterRemoveCmd = new LamdaCommand(OnAddNewWaterRemoveCmdExecuted, CanAddNewWaterRemoveCmdExecute);
             Collection.Houses.Clear();
             Collection.WaterRemoves.Clear();
+            Collection.CardHolders.Clear();
+            IDownloadUserCard.ShowCardUser(Collection.CardHolders);
             IDownloadWaterRemove.ShowAllWaterRemove(Collection.WaterRemoves);
             IDownloadHouse.ShowHouse(Collection.Houses);
         }

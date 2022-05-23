@@ -108,6 +108,8 @@ namespace MyBudget.ViewModels
             get { return _debtColdWater; }
             set => Set(ref _debtColdWater, ToBePaid - PayedColdWater);
         }
+        // Выбор карты для списания оплаченных средств
+        public CardHolder Card { get; set; }
         #endregion
 
         #region Команда добавления нового расхода холдной воды в БД
@@ -137,6 +139,9 @@ namespace MyBudget.ViewModels
                         IDownload_AllBalance.UpdateCashAfterInsertCosts(coldWater.PayedColdWater, Collection.AllBalance);
                         Collection.AllBalance.Clear();
                         IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
+                        IDownloadUserCard.UpdateBalanceUserCard(Card, PayedColdWater);
+                        Collection.Cards.Clear();
+                        IDownloadUserCard.LoadAllCardsMainWindow(Collection.Cards);
                         MessageBox.Show("Данные добавлены!");
                         break;
                 }
@@ -150,6 +155,9 @@ namespace MyBudget.ViewModels
                 IDownload_AllBalance.UpdateCashAfterInsertCosts(coldWater.PayedColdWater, Collection.AllBalance);
                 Collection.AllBalance.Clear();
                 IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
+                IDownloadUserCard.UpdateBalanceUserCard(Card, PayedColdWater);
+                Collection.Cards.Clear();
+                IDownloadUserCard.LoadAllCardsMainWindow(Collection.Cards);
                 MessageBox.Show("Данные добавлены!");
             }
             
@@ -164,8 +172,8 @@ namespace MyBudget.ViewModels
             AddNewColdWaterCmd = new LamdaCommand(OnAddNewColdWaterCmdExecuted, CanAddNewColdWaterCmdExecute);
             Collection.ColdWaters.Clear();
             Collection.Houses.Clear();
-            //Collection.CardHolders.Clear();
-            //IDownloadUserCard.ShowCardUser(Collection.CardHolders);
+            Collection.CardHolders.Clear();
+            IDownloadUserCard.ShowCardUser(Collection.CardHolders);
             IDownloadHouse.ShowHouse(Collection.Houses);
             IDownloadColdWater.ShowAllColdWater(Collection.ColdWaters);
         }

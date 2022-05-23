@@ -18,7 +18,7 @@ using System.Windows.Input;
 
 namespace MyBudget.ViewModels
 {
-    class AddExpensesHotWater_ViewModel : ViewModel_Base, IDownLoadHotWater, IDownloadHouse, IDownload_AllBalance
+    class AddExpensesHotWater_ViewModel : ViewModel_Base, IDownLoadHotWater, IDownloadHouse, IDownload_AllBalance, IDownloadUserCard
     {
         #region Заголовок окна
         private string _Title = "Добавлние нового расхода горячей воды.";
@@ -110,6 +110,9 @@ namespace MyBudget.ViewModels
             get { return _debtHotWater; }
             set => Set(ref _debtHotWater, ToBePaidHotWater - PayedHotWater);
         }
+
+        // Выбор карты для списания средств оплаченных трат
+        public CardHolder Card { get; set; }
         #endregion
 
 
@@ -140,6 +143,9 @@ namespace MyBudget.ViewModels
                         IDownload_AllBalance.UpdateCashAfterInsertCosts(hotWater.PayedHotWater, Collection.AllBalance);
                         Collection.AllBalance.Clear();
                         IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
+                        IDownloadUserCard.UpdateBalanceUserCard(Card, PayedHotWater);
+                        Collection.Cards.Clear();
+                        IDownloadUserCard.LoadAllCardsMainWindow(Collection.Cards);
                         MessageBox.Show("Данные добавлены!");
                         break;
                 }
@@ -153,6 +159,9 @@ namespace MyBudget.ViewModels
                 IDownload_AllBalance.UpdateCashAfterInsertCosts(hotWater.PayedHotWater, Collection.AllBalance);
                 Collection.AllBalance.Clear();
                 IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
+                IDownloadUserCard.UpdateBalanceUserCard(Card, PayedHotWater);
+                Collection.Cards.Clear();
+                IDownloadUserCard.LoadAllCardsMainWindow(Collection.Cards);
                 MessageBox.Show("Данные добавлены!");
             }
         }
@@ -166,6 +175,8 @@ namespace MyBudget.ViewModels
             AddNewHotWaterCmd = new LamdaCommand(OnAddNewHotWaterCmdExecuted, CanAddNewHotWaterCmdExecute);
             Collection.HotWaters.Clear();
             Collection.Houses.Clear();
+            Collection.CardHolders.Clear();
+            IDownloadUserCard.ShowCardUser(Collection.CardHolders);
             IDownloadHouse.ShowHouse(Collection.Houses);
             IDownLoadHotWater.ShowAllHotWater(Collection.HotWaters);
         }
