@@ -89,8 +89,10 @@ namespace MyBudget.ViewModels
                 newTransfer.Date = DateTransfer.Date.ToLongDateString();
                 AddNewTransfer(newTransfer);
                 Collection.CardHolders.Clear();
+                Collection.Cards.Clear();
                 Collection.AllTypeTransfer.Clear();
                 IDownloadUserCard.ShowCardUser(Collection.CardHolders);
+                IDownloadUserCard.LoadAllCardsMainWindow(Collection.Cards);
                 IDownloadTypeTransfer.ShowTypeTransfer(Collection.AllTypeTransfer);
                 Collection.AllBalance.Clear();
                 IDownload_AllBalance.ShowAllBalance(Collection.AllBalance);
