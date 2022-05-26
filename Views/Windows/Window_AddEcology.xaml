@@ -22,7 +22,8 @@
             </Button>
             <Button Content="Добавить" Height="30" Width="80" 
                     HorizontalAlignment="Right" Margin="5"
-                    Style="{StaticResource CheckButtonStyle}">
+                    Style="{StaticResource CheckButtonStyle}"
+                    Command="{Binding AddNewEcologyCmd}">
             </Button>
         </UniformGrid>
         <DockPanel DockPanel.Dock="Left" Width="370" Margin="5">
@@ -39,11 +40,15 @@
                       AutoGenerateColumns="False"
                       CanUserReorderColumns="False" 
                       CanUserAddRows="False"
-                      CanUserResizeColumns="False">
+                      CanUserResizeColumns="False"
+                      ItemsSource="{Binding Source={x:Static serv:Collection.Ecologies}}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Дом" Width="60"/>
-                    <DataGridTextColumn Header="Дата" Width="130"/>
-                    <DataGridTextColumn Header="Оплачено" Width="*"/>
+                    <DataGridTextColumn Header="Дом" Width="60"
+                                        Binding="{Binding IdHouse}"/>
+                    <DataGridTextColumn Header="Дата" Width="130"
+                                        Binding="{Binding DateEcology}"/>
+                    <DataGridTextColumn Header="Оплачено" Width="*"
+                                        Binding="{Binding PayedEcology}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
@@ -108,7 +113,8 @@
                 <DatePicker Grid.Column="1"
                          Grid.Row="0"                         
                          VerticalAlignment="Top"
-                         Margin="3,28,3,5"/>
+                         Margin="3,28,3,5"
+                            SelectedDate="{Binding NewDateEcology}"/>
 
                 <TextBlock Grid.Column="0"
                            Grid.Row="1"
@@ -162,7 +168,7 @@
                          TextWrapping="Wrap"
                          VerticalAlignment="Top" 
                          Margin="3,30,3,5"
-                         Text="{Binding DebtColdWaterOnForms, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding DebtEcologyOnForms, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBlock Grid.Column="1"
                            Grid.Row="3"
